@@ -12,6 +12,7 @@ $button-selectors: get-override("button-selectors", '.button, button', $_overrid
 $button-default-color: #{$_colorNamePrefix}grey-10!default;
 $button-border-width: 1px !default;
 $button-border-depth: 1!default; // border depth
+$button-font-weight: normal !default;
 
 $button-base-rules: (
   "display": inline-flex,
@@ -25,16 +26,16 @@ $button-base-rules: (
     var(--button-padding-block-end, var(--text-frame-y))
     var(--button-padding-inline-start, var(--text-frame-x)),
   "border-radius": var(--button-border-radius, min(var(--radius), var(--button-max-radius, var(--radius)))),
+  "font-weight": var(--button-font-weight, #{$button-font-weight}),
 ) !default;
 
 $button-base-props: (
-  "button-color": var(--#{$button-default-color}),
-  "button-color-contrast": var(--#{$button-default-color}-contrast),
-  "button-border-color": color-mix(in oklab, var(--button-color), calc(var(--button-border-depth, 1) * 5%) var(--button-border-color-mix, var(--#{$_colorNamePrefix}dark, #000))  ),
+  "button-color": var(--button-default-color, var(--#{$button-default-color})),
+  "button-color-contrast": var(--button-default-color-contrast, var(--#{$button-default-color}-contrast)),
+  "button-border-color": color-mix(in oklab, var(--button-color), calc(var(--button-border-depth, #{$button-border-depth}) * 5%) var(--button-border-color-mix, var(--#{$_colorNamePrefix}dark, #000))  ),
   "button-fg": var(--button-color-contrast),
   "button-bg": var(--button-color),
   "button-border": var(--button-border-color),
-  "button-border-depth": #{$button-border-depth},
 )!default;
 
     // --btn-bg: var(--btn-color, var(--color-base-200));

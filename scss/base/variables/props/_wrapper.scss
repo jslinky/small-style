@@ -5,7 +5,8 @@
 @import "../../../theme/overrides";
 
 // Set defaults with potential overrides from theme
-$max-wrapper-width: 1440px !default;
+$root-max-wrapper-width: 1440px !default;
+$max-wrapper-width: var(--root-max-wrapper-width, #{$max-wrapper-width}) !default;
 $wrapper-padding: include-prop-fallbacks("layout-gap", #{layout.$layout-gap})!default;
 $wrapper-padding-min: string.unquote("clamp(#{include-prop-fallbacks("layout-gap", #{layout.$layout-gap})}, 2vw, (#{include-prop-fallbacks("layout-gap", #{layout.$layout-gap})} * 2))") !default;
 $wrapper-inline: string.unquote("max(#{include-prop-fallbacks("wrapper-padding-min", #{$wrapper-padding-min})}, calc(50vw - var(--wrapper-width) / 2 + #{include-prop-fallbacks("wrapper-padding", #{$wrapper-padding})} * 2 / 2))") !default;
@@ -13,34 +14,39 @@ $wrapper-width: calc(var(--max-wrapper-width, #{$max-wrapper-width}) + (var(--wr
 $grid-wrapper-columns: var(--start-col, var(--wrapper-inline)) var(--center-col, 1fr) var(--end-col, var(--wrapper-inline)) !default;
 
 $register-wrapper: (
+    'root-max-wrapper-width': (
+        'syntax': "*",
+        'inherits': true,
+        'initial-value': #{$root-max-wrapper-width}
+    ),
     'max-wrapper-width': (
-        'syntax': "<length>",
-        'inherits': false,
-        'initial-value': #{$max-wrapper-width}
+        'syntax': "*",
+        'inherits': true,
+        'initial-value': #{$root-max-wrapper-width}
     ),
     'wrapper-padding': (
-        'syntax': "<length>",
-        'inherits': false,
+        'syntax': "*",
+        'inherits': true,
         'initial-value': calc(clamp(0.25rem, 1vi, 1rem) * 1.42 * 1.42 * 1.42)
     ),
     'wrapper-padding-min': (
-        'syntax': "<length>",
-        'inherits': false,
+        'syntax': "*",
+        'inherits': true,
         'initial-value': clamp(calc(clamp(0.25rem, 1vi, 1rem) * 1.42 * 1.42 * 1.42), 2vw, (calc(clamp(0.25rem, 1vi, 1rem) * 1.42 * 1.42 * 1.42) * 2))
     ),
     'wrapper-inline': (
         'syntax': "*",
-        'inherits': false,
+        'inherits': true,
         'initial-value': max(clamp(calc(clamp(0.25rem, 1vi, 1rem) * 1.42 * 1.42 * 1.42), 2vw, (calc(clamp(0.25rem, 1vi, 1rem) * 1.42 * 1.42 * 1.42) * 2)), calc(50vw - #{$max-wrapper-width} / 2 + calc(clamp(0.25rem, 1vi, 1rem) * 1.42 * 1.42 * 1.42) * 2 / 2))
     ),
     'wrapper-width': (
         'syntax': "*",
-        'inherits': false,
-        'initial-value': calc(#{$max-wrapper-width} + (calc(clamp(0.25rem, 1vi, 1rem) * 1.42 * 1.42 * 1.42) * 2))
+        'inherits': true,
+        'initial-value': calc(#{$root-max-wrapper-width} + (calc(clamp(0.25rem, 1vi, 1rem) * 1.42 * 1.42 * 1.42) * 2))
     ),
     'grid-wrapper-columns': (
         'syntax': "*",
-        'inherits': false,
+        'inherits': true,
         'initial-value': max(clamp(calc(clamp(0.25rem, 1vi, 1rem) * 1.42 * 1.42 * 1.42), 2vw, (calc(clamp(0.25rem, 1vi, 1rem) * 1.42 * 1.42 * 1.42) * 2)), calc(50vw - #{$max-wrapper-width} / 2 + calc(clamp(0.25rem, 1vi, 1rem) * 1.42 * 1.42 * 1.42) * 2 / 2)) 1fr max(clamp(calc(clamp(0.25rem, 1vi, 1rem) * 1.42 * 1.42 * 1.42), 2vw, (calc(clamp(0.25rem, 1vi, 1rem) * 1.42 * 1.42 * 1.42) * 2)), calc(50vw - #{$max-wrapper-width} / 2 + calc(clamp(0.25rem, 1vi, 1rem) * 1.42 * 1.42 * 1.42) * 2 / 2))
     )                                                
 );

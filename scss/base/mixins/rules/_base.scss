@@ -21,6 +21,7 @@
 
 @mixin anchor-not-button-styles() {
   text-decoration: none;
+  color: inherit;
 }
 
 @mixin all-base-styles($scopeClassName) {

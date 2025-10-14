@@ -48,11 +48,12 @@ $heading-size-tags: (
                         &:after {
                             content: '';
                             display: block;
-                            width: min(10rem, calc(100% - 2em));
-                            background: currentColor;
-                            height: 0.675rem;
+                            width: var(--heading-underline-width, min(10rem, calc(100% - 2em)));
+                            background: var(--heading-underline-color, currentColor);
+                            height: var(--heading-underline-height, 0.675rem);
                             margin-inline: auto;
-                            margin-block-start: 0.5em;
+                            margin-block-start: var(--heading-underline-block-start, 0.5em);
+                            border-radius: var(--heading-underline-border-radius, 0);
                         }
                     }
                 }

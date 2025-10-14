@@ -52,3 +52,7 @@
   #root, #__nuxt {
     isolation: isolate;
   }
+
+  ol, ul, menu {
+    list-style: none;
+  }
