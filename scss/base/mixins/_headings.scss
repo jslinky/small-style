@@ -3,13 +3,13 @@
     @each $key, $value in $heading {         
         @if $key == "font-size-min" or $key == "font-size-max" {
             $font-size-min: map-get($heading-sizes, $value);
-            --#{$key}: var(--#{$value}-px);
+            --#{$key}: var(--heading-#{$size}-#{$key}, var(--#{$value}-px));
             @if($key == "font-size-max") {
                 --font-size: calc((var(--font-size-max) / var(--font-size-base-px)) * 1rem)
             }
         } @else {
             @if(map-has-key($heading , $key)) {            
-                --#{$key}: #{$value};
+                --#{$key}: var(--heading-#{$size}-#{$key}, #{$value});
             }
         }        
     }

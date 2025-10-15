@@ -44,6 +44,14 @@ $headings: (
 )!default;
 
 $heading-sizes: (
+    "3xl" : (
+        "font-size-min": "display-md",
+        "font-size-max": "display-lg",
+        "font-ratio-min": 1.2,
+        "font-ratio-max": 1.5,
+        "font-width-min": 375,
+        "font-width-max": 1440,
+    ),
     "2xl" : (
         "font-size-min": "display-sm",
         "font-size-max": "display-md",

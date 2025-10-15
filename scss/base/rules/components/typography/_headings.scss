@@ -1,119 +1,194 @@
-@use 'sass:list';
+@use "sass:list";
 @use "sass:map";
 @use "../../../mixins/headings" as *;
 @use "../../../mixins/output-rules-with-scope" as *;
 @use "../../../variables/components/typography/headings" as *;
 
-$heading-tags: (
-);
-$heading-size-tags: (
-);
+$heading-tags: ();
+$heading-size-tags: ();
+$heading-size-tag-classes: ();
+$remainder-heading-size-tags: ();
+$remainder-heading-size-tag-classes: ();
 
 @each $item in map-keys($headings) {
-    $heading-tags: list.append($heading-tags, '#{$item}', comma);
+  $heading-tags: list.append($heading-tags, "#{$item}", comma);
 }
 
 @each $key, $value in $headings {
-    $has-size: map-has-key($value, 'size');
+  $has-size: map-has-key($value, "size");
 
-    @if($has-size) {
-        $size: map-get($value , 'size');
-        $heading-size-tags: list.append($heading-size-tags, '.heading-#{$size}', comma);
+  @if ($has-size) {
+    $size: map-get($value, "size");
+    $heading-size-tags: list.append($heading-size-tags, "#{$size}", comma);
+  }
+}
+
+@each $size in $heading-size-tags {
+  $heading-size-tag-classes: list.append(
+    $heading-size-tag-classes,
+    ".heading-#{$size}",
+    comma
+  );
+}
+
+@each $size in map-keys($heading-sizes) {
+  $used-in-headings: if(index($heading-size-tags, $size) !=null, true, false);
+  @if (not $used-in-headings) {
+    @if (length($remainder-heading-size-tags) > 1) {
+      $remainder-heading-size-tags: list.append(
+        $remainder-heading-size-tags,
+        ",",
+        comma
+      );
+    } @else {
+      $remainder-heading-size-tags: list.append(
+        $remainder-heading-size-tags,
+        "#{$size}"
+      );
     }
+  }
+}
+
+@each $size in $remainder-heading-size-tags {
+  $remainder-heading-size-tag-classes: list.append(
+    $remainder-heading-size-tag-classes,
+    ".heading-#{$size}",
+    comma
+  );
+}
+
+@mixin output-heading-rules($value, $prop-name) {
+  @if (map-has-key($value, "size")) {
+    $size: map-get($value, "size");
+    @include heading-size($size, $heading-sizes);
+  }
+
+  @if (map-has-key($value, "text-transform")) {
+    $text-transform: map-get($value, "text-transform");
+
+    @if ($text-transform != "") {
+      --text-transform: var(--#{$prop-name}-text-transform, #{$text-transform});
+    }
+  } @else {
+      --text-transform: var(--#{$prop-name}-text-transform, none);
+  }
+
+  @if (map-has-key($value, "letter-spacing")) {
+    $letter-spacing: map-get($value, "letter-spacing");
+
+    @if ($letter-spacing != "") {
+      --letter-spacing: var(--#{$prop-name}-letter-spacing, #{$letter-spacing});
+    }    
+  } @else {
+      --letter-spacing: var(--#{$prop-name}-letter-spacing, normal);
+  }
+
+  @if (map-has-key($value, "line-height")) {
+    $line-height: map-get($value, "line-height");
+
+    @if ($line-height != "") {
+      --line-height: var(--#{$prop-name}-line-height, #{$line-height});
+    }
+  } @else {
+      --line-height: var(--#{$prop-name}-line-height, normal);
+  }
+
+  @if (map-has-key($value, "color")) {
+    $color: map-get($value, "color");
+
+    @if ($color != "") {
+      --color: var(--#{$prop-name}-color, #{$color});
+    }
+  } @else {
+      --color: var(--#{$prop-name}-color, inherit);
+  }
+
+  @if (map-has-key($value, "font-family")) {
+    $font-family: map-get($value, "font-family");
+
+    @if ($font-family != "") {
+      // --font-family: #{$font-family};
+      --font-family: var(--#{$prop-name}-font-family, #{$font-family});
+    }
+  } @else {
+    --font-family: var(--#{$prop-name}-font-family, var(--font-family-heading));
+  }
 }
 
 @include output-rules-with-scope() {
-    @layer base {
-        :where(#{$heading-tags}, #{$heading-size-tags}) {
-            @each $key, $value in $heading-base {
-                #{$key}: $value;
+  @layer base {
+    :where(#{$heading-tags}, #{$heading-size-tag-classes}, #{$remainder-heading-size-tag-classes}) {
+      @each $key, $value in $heading-base {
+        #{$key}: $value;
+      }
+    }
+
+    // / For sub text sizing
+    :where(#{$heading-tags}, #{$heading-size-tag-classes}, #{$remainder-heading-size-tag-classes}) {
+      > span {
+        margin-trim: block;
+      }
+
+      > span:nth-of-type(1):not(:last-of-type) {
+        font-size: 0.5em;
+        display: block;
+        line-height: 1;
+      }
+
+      &:has(span:nth-of-type(1):not(:last-of-type), span:only-of-type) {
+        &.heading--underline {
+          > span:last-of-type {
+            &:after {
+              content: "";
+              display: block;
+              width: var(
+                --heading-underline-width,
+                min(10rem, calc(100% - 2em))
+              );
+              background: var(--heading-underline-color, currentColor);
+              height: var(--heading-underline-height, 0.675rem);
+              margin-inline: var(--heading-underline-margin-inline, 0);
+              margin-block-start: var(--heading-underline-block-start, 0.5em);
+              border-radius: var(--heading-underline-border-radius, 0);
             }
+          }
+          &[class*="text-center"] {
+            --heading-underline-margin-inline: auto;
+          }
         }
+      }
+    }
 
-        // / For sub text sizing 
-        :where(#{$heading-tags}, #{$heading-size-tags}) {
-            >span {
-                margin-trim: block;
-            }
+    /// Build in a switch which outputs in tailwind only - useful for specifity
 
-            >span:nth-of-type(1):not(:last-of-type) {
-                font-size: 0.5em;
-                display: block;
-                line-height: 1;
-            }
+    @each $key, $value in $headings {
+      $heading-tag: $key;
+      $heading-class: if(
+        map-has-key($value, "size"),
+        ".heading-" + map-get($value, "size"),
+        #{$key}
+      );
+      $prop-name: if(
+        map-has-key($value, "size"),
+        "heading-" + map-get($value, "size"),
+        $key
+      );
 
-            &:has(span:nth-of-type(1):not(:last-of-type), span:only-of-type) {
-                &.heading--underline {
-                    >span:last-of-type {
-                        &:after {
-                            content: '';
-                            display: block;
-                            width: var(--heading-underline-width, min(10rem, calc(100% - 2em)));
-                            background: var(--heading-underline-color, currentColor);
-                            height: var(--heading-underline-height, 0.675rem);
-                            margin-inline: auto;
-                            margin-block-start: var(--heading-underline-block-start, 0.5em);
-                            border-radius: var(--heading-underline-border-radius, 0);
-                        }
-                    }
-                }
+      :where(#{$heading-tag}),
+      :is(#{$heading-class}) {
+        @include output-heading-rules($value, $prop-name);
+      }
+    }
 
-            }
-        }
-
-
-        
-        /// Build in a switch which outputs in tailwind only - useful for specifity 
-
-        @each $key, $value in $headings {
-            $selector: if(map-has-key($value, 'size'), '#{$key},' '.heading-' + map-get($value, 'size'), #{$key});
-
-            :where(#{$selector}) {
-                @if(map-has-key($value, 'size')) {
-                    $size: map-get($value , "size");
-                    @include heading-size($size, $heading-sizes);
-                }
-
-                @if(map-has-key($value , 'text-transform')) {
-                    $text-transform: map-get($value , 'text-transform');
-
-                    @if($text-transform !='') {
-                        --text-transform: #{$text-transform};
-                    }
-                }
-
-                @if(map-has-key($value , 'letter-spacing')) {
-                    $letter-spacing: map-get($value , 'letter-spacing');
-
-                    @if($letter-spacing !='') {
-                        --letter-spacing: #{$letter-spacing};
-                    }
-                }
-
-                @if(map-has-key($value , 'line-height')) {
-                    $line-height: map-get($value , 'line-height');
-
-                    @if($line-height !='') {
-                        --line-height: #{$line-height};
-                    }
-                }
-
-                @if(map-has-key($value , 'color')) {
-                    $color: map-get($value , 'color');
-
-                    @if($color !='') {
-                        --color: #{$color};
-                    }
-                }
-
-                @if(map-has-key($value , 'font-family')) {
-                    $font-family: map-get($value , 'font-family');
-
-                    @if($font-family !='') {
-                        --font-family: #{$font-family};
-                    }
-                }
+    @each $key, $value in $heading-sizes {
+        @if (index($remainder-heading-size-tags, $key) != null) {
+            @debug 'including heading size for: #{$key}';
+            :is(.heading-#{$key}) {
+                @include heading-size($key, $heading-sizes);
             }
         }
     }
+
+
+  }
 }
