@@ -57,62 +57,23 @@ $remainder-heading-size-tag-classes: ();
   );
 }
 
-@mixin output-heading-rules($value, $prop-name) {
-  @if (map-has-key($value, "size")) {
-    $size: map-get($value, "size");
+@mixin output-heading-rules($map, $heading-name) {
+  @if (map-has-key($map, "size")) {
+    $size: map-get($map, "size");
     @include heading-size($size, $heading-sizes);
   }
 
-  @if (map-has-key($value, "text-transform")) {
-    $text-transform: map-get($value, "text-transform");
-
-    @if ($text-transform != "") {
-      --text-transform: var(--#{$prop-name}-text-transform, #{$text-transform});
-    }
-  } @else {
-      --text-transform: var(--#{$prop-name}-text-transform, none);
-  }
-
-  @if (map-has-key($value, "letter-spacing")) {
-    $letter-spacing: map-get($value, "letter-spacing");
-
-    @if ($letter-spacing != "") {
-      --letter-spacing: var(--#{$prop-name}-letter-spacing, #{$letter-spacing});
-    }    
-  } @else {
-      --letter-spacing: var(--#{$prop-name}-letter-spacing, normal);
-  }
-
-  @if (map-has-key($value, "line-height")) {
-    $line-height: map-get($value, "line-height");
-
-    @if ($line-height != "") {
-      --line-height: var(--#{$prop-name}-line-height, #{$line-height});
-    }
-  } @else {
-      --line-height: var(--#{$prop-name}-line-height, normal);
-  }
-
-  @if (map-has-key($value, "color")) {
-    $color: map-get($value, "color");
-
-    @if ($color != "") {
-      --color: var(--#{$prop-name}-color, #{$color});
-    }
-  } @else {
-      --color: var(--#{$prop-name}-color, inherit);
-  }
-
-  @if (map-has-key($value, "font-family")) {
-    $font-family: map-get($value, "font-family");
-
-    @if ($font-family != "") {
-      // --font-family: #{$font-family};
-      --font-family: var(--#{$prop-name}-font-family, #{$font-family});
-    }
-  } @else {
-    --font-family: var(--#{$prop-name}-font-family, var(--font-family-heading));
-  }
+    $text-transform: if(map-has-key($map, "text-transform"), if(map-get($map, "text-transform") != '', map-get($map, "text-transform"), none), none);
+    $letter-spacing: if(map-has-key($map, "letter-spacing"), if(map-get($map, "letter-spacing") != '', map-get($map, "letter-spacing"), normal), normal);
+    $line-height: if(map-has-key($map, "line-height"), if(map-get($map, "line-height") != '', map-get($map, "line-height"), normal), normal);
+    $color: if(map-has-key($map, "color"), if(map-get($map, "color") != '', map-get($map, "color"), inherit), inherit);
+    $font-family: if(map-has-key($map, "font-family"), if(map-get($map, "font-family") != '', map-get($map, "font-family"), var(--font-family-heading)), var(--font-family-heading));
+    
+    --text-transform: var(--#{$heading-name}-text-transform, #{$text-transform});
+    --letter-spacing: var(--#{$heading-name}-letter-spacing, #{$letter-spacing});
+    --line-height: var(--#{$heading-name}-line-height, #{$line-height});
+    --color: var(--#{$heading-name}-color, #{$color});
+    --font-family: var(--#{$heading-name}-font-family, #{$font-family});
 }
 
 @include output-rules-with-scope() {
@@ -182,13 +143,12 @@ $remainder-heading-size-tag-classes: ();
 
     @each $key, $value in $heading-sizes {
         @if (index($remainder-heading-size-tags, $key) != null) {
-            @debug 'including heading size for: #{$key}';
             :is(.heading-#{$key}) {
                 @include heading-size($key, $heading-sizes);
+                @include output-heading-rules($value, 'heading-#{$key}');
             }
         }
     }
-
 
   }
 }
