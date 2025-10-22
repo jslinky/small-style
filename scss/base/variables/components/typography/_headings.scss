@@ -3,7 +3,7 @@ $heading-base: (
     "text-transform": var(--text-transform),
     "letter-spacing": var(--letter-spacing, normal),
     "line-height": var(--line-height, inherit),
-    "color": var(--color, inherit),
+    "color": var(--color, var(--color-heading, var(--color-dark))),
     "font-family": var(--font-family, var(--font-family-heading)),
     "font-weight": var(--font-weight, var(--font-heading-weight, 600))
 );

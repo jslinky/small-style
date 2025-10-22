@@ -2,377 +2,455 @@
 @use "../../../variables/components/cards" as *;
 
 @mixin default-props() {
-    --card-two-columns: var(--card-left-col, minmax(0, 1fr)) var(--card-right-col, minmax(0, 1fr));
-    --card-body-padding-inline: var(--layout-gap);
-    --card-body-padding-block: var(--layout-gap);
-    --card-auto-row: auto;
-    --fluid-headings: false; 
+  --card-two-columns: var(--card-left-col, minmax(0, 1fr))
+    var(--card-right-col, minmax(0, 1fr));
+  --card-body-padding-inline: var(--layout-gap);
+  --card-body-padding-block: var(--layout-gap);
+  --card-auto-row: auto;
+  --fluid-headings: false;
 }
 
 @mixin default-rules() {
-    @include default-props();
-    grid-template-columns: var(--card-columns, 1fr);
-    background-color: var(--card-background-color, var(--surface-bg-color));
-    position: relative;
-    border: var(--card-border-width, var(--field-border-width, 1px)) var(--card-border-style, solid) var(--card-border-color, var(--field-border-color, transparent));
-    border-radius: var(--card-radius, var(--radius));
-    height: 100%;
-    column-gap: calc(var(--card-gap-column, var(--card-padding-inline, 0)) * var(--card-gap-column-multiplier, 1));
-    row-gap: calc(var(--card-gap-row, var(--card-padding-block, 0)) * var(--card-gap-row-multiplier, 1));    
-    aspect-ratio: var(--card-aspect, none);
-    display: grid;
-    padding-inline: var(--card-padding-inline, 0);
-    padding-block: var(--card-padding-block, 0);
+  @include default-props();
+  grid-template-columns: var(--card-columns, 1fr);
+  background-color: var(--card-background-color, var(--surface-bg-color));
+  position: relative;
+  border: var(--card-border-width, var(--field-border-width, 1px))
+    var(--card-border-style, solid)
+    var(--card-border-color, var(--field-border-color, transparent));
+  border-radius: var(--card-radius, var(--radius));
+  height: 100%;
+  column-gap: calc(
+    var(--card-gap-column, var(--card-padding-inline, 0)) *
+      var(--card-gap-column-multiplier, 1)
+  );
+  row-gap: calc(
+    var(--card-gap-row, var(--card-padding-block, 0)) *
+      var(--card-gap-row-multiplier, 1)
+  );
+  aspect-ratio: var(--card-aspect, none);
+  display: grid;
+  padding-inline: var(--card-padding-inline, 0);
+  padding-block: var(--card-padding-block, 0);
 
-    :is(h2, h3):not(.heading) {
-        text-wrap: balance;
-    }
+  :is(h2, h3):not(.heading) {
+    text-wrap: balance;
+  }
 }
 
 @mixin stacked() {
-    --card-columns: 1fr;
-    grid-auto-flow: row;
+  --card-columns: 1fr;
+  grid-auto-flow: row;
 }
 
 @mixin link() {
+  // text-decoration: none;
+  // font-size: inherit;
+  &:focus-visible {
+    --outline-color: transparent;
+  }
 
-    // text-decoration: none;
-    // font-size: inherit;
-    &:focus-visible {
-        --outline-color: transparent;
-    }
-
-    // &:not(.button)::before {
-    &:only-of-type::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-    }
+  // &:not(.button)::before {
+  &:only-of-type::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
 }
 
 @mixin two-column-layout() {
-    --card-columns: var(--card-two-columns);
-    grid-auto-flow: column;
+  --card-columns: var(--card-two-columns);
+  --card-auto-row: auto;
+  grid-auto-flow: column;
 }
 
 /// baked in fallbacks for content sizing
 @mixin grid-template-content-sizes($direction: column, $order: 0, $size: 1fr) {
-    @if ($direction == row) {
-        @if ($order == 0) {
-            &:is([data-card-#{$direction}-content-#{$order}-size="#{$size}"]) {
-                --card-top-row: #{$size};
-            }
-        } @else if ($order == 1) {
-            &:is([data-card-#{$direction}-content-#{$order}-size="#{$size}"]) {
-                --card-bottom-row: #{$size};
-            }
-        }
-    } @else if ($direction == column) {
-        @if ($order == 0) {
-            &:is([data-card-#{$direction}-content-#{$order}-size="#{$size}"]) {
-                --card-left-col: #{$size};
-            }
-        } @else if ($order == 1) {
-            &:is([data-card-#{$direction}-content-#{$order}-size="#{$size}"]) {
-                --card-right-col: #{$size};
-            }
-        }
+  @if ($direction == row) {
+    @if ($order == 0) {
+      &:is([data-card-#{$direction}-content-#{$order}-size="#{$size}"]) {
+        --card-top-row: #{$size};
+      }
+    } @else if ($order == 1) {
+      &:is([data-card-#{$direction}-content-#{$order}-size="#{$size}"]) {
+        --card-bottom-row: #{$size};
+      }
     }
+  } @else if ($direction == column) {
+    @if ($order == 0) {
+      &:is([data-card-#{$direction}-content-#{$order}-size="#{$size}"]) {
+        --card-left-col: #{$size};
+      }
+    } @else if ($order == 1) {
+      &:is([data-card-#{$direction}-content-#{$order}-size="#{$size}"]) {
+        --card-right-col: #{$size};
+      }
+    }
+  }
 }
 
 /// content sizing using attr() function
 @mixin grid-template-attr-sizes() {
-    /* Browser has modern attr() support */
-    $check: unquote('x: attr(x type(*))');
-    @supports (#{$check}) {          
-        &:is([data-card-column-content-0-size]) {
-            --card-left-col: attr(data-card-column-content-0-size type(<length> | <percentage>));
-        }
-        &:is([data-card-column-content-1-size]) {
-            --card-right-col: attr(data-card-column-content-1-size type(<length> | <percentage>));
-        }
-        &:is([data-card-row-content-0-size]) {
-            --card-top-row: attr(data-card-row-content-0-size type(<length> | <percentage>));
-        }
-        &:is([data-card-row-content-1-size]) {
-            --card-bottom-row: attr(data-card-row-content-1-size type(<length> | <percentage>));
-        }
+  /* Browser has modern attr() support */
+  $check: unquote("x: attr(x type(*))");
+  @supports (#{$check}) {
+    &:is([data-card-column-content-0-size]) {
+      --card-left-col: attr(
+        data-card-column-content-0-size type(<length> | <percentage>)
+      );
     }
+    &:is([data-card-column-content-1-size]) {
+      --card-right-col: attr(
+        data-card-column-content-1-size type(<length> | <percentage>)
+      );
+    }
+    &:is([data-card-row-content-0-size]) {
+      --card-top-row: attr(
+        data-card-row-content-0-size type(<length> | <percentage>)
+      );
+    }
+    &:is([data-card-row-content-1-size]) {
+      --card-bottom-row: attr(
+        data-card-row-content-1-size type(<length> | <percentage>)
+      );
+    }
+  }
 }
 
 @mixin text-align($direction: column) {
-    &:is([data-card-#{$direction}-text-align="start"]) {
-        :is(#{$card-content-selectors}) {
-            text-align: start;
-        }
+  &:is([data-card-#{$direction}-text-align="start"]) {
+    :is(#{$card-content-selectors}) {
+      text-align: start;
     }
+  }
 
-    &:is([data-card-#{$direction}-text-align="center"]) {
-        :is(#{$card-content-selectors}) {
-            text-align: center;
-        }
+  &:is([data-card-#{$direction}-text-align="center"]) {
+    :is(#{$card-content-selectors}) {
+      text-align: center;
     }
+  }
 
-    &:is([data-card-#{$direction}-text-align="end"]) {
-        :is(#{$card-content-selectors}) {
-            text-align: end;
-        }
+  &:is([data-card-#{$direction}-text-align="end"]) {
+    :is(#{$card-content-selectors}) {
+      text-align: end;
     }
+  }
 }
 
 @mixin justify-content($direction: column) {
-    &:where([data-card-#{$direction}-justify]) {
-        :is(#{$card-body-selectors}, #{$card-content-selectors}) {
-            display: flex;
-            flex-wrap: wrap;
+  &:where([data-card-#{$direction}-justify]) {
+    :is(#{$card-body-selectors}, #{$card-content-selectors}) {
+      display: flex;
+      flex-wrap: wrap;
 
-            > :is(#{$card-caption-selectors}, #{$card-body-selectors}, #{$card-footer-selectors}) {
-                flex: 1 1 100%;
-            }
-        }
+      > :is(
+          #{$card-caption-selectors},
+          #{$card-body-selectors},
+          #{$card-footer-selectors}
+        ) {
+        flex: 1 1 100%;
+      }
     }
+  }
 
-    &:is([data-card-#{$direction}-justify="start"]) {
-        :is(#{$card-body-selectors}, #{$card-content-selectors}) {
-            justify-content: start;
-        }
+  &:is([data-card-#{$direction}-justify="start"]) {
+    :is(#{$card-body-selectors}, #{$card-content-selectors}) {
+      justify-content: start;
     }
+  }
 
-    &:is([data-card-#{$direction}-justify="center"]) {
-        :is(#{$card-body-selectors}, #{$card-content-selectors}) {
-            justify-content: center;
-        }
+  &:is([data-card-#{$direction}-justify="center"]) {
+    :is(#{$card-body-selectors}, #{$card-content-selectors}) {
+      justify-content: center;
     }
+  }
 
-    &:is([data-card-#{$direction}-justify="end"]) {
-        :is(#{$card-body-selectors}, #{$card-content-selectors}) {
-            justify-content: end;
-        }
+  &:is([data-card-#{$direction}-justify="end"]) {
+    :is(#{$card-body-selectors}, #{$card-content-selectors}) {
+      justify-content: end;
     }
+  }
 
-    &:is([data-card-#{$direction}-justify="stretch"]) {
-        :is(#{$card-body-selectors}, #{$card-content-selectors}) {
-            justify-content: stretch;
-        }
+  &:is([data-card-#{$direction}-justify="stretch"]) {
+    :is(#{$card-body-selectors}, #{$card-content-selectors}) {
+      justify-content: stretch;
     }
+  }
 
-    &:is([data-card-#{$direction}-justify="space-between"]) {
-        :is(#{$card-body-selectors}, #{$card-content-selectors}) {
-            justify-content: space-between;
-        }
+  &:is([data-card-#{$direction}-justify="space-between"]) {
+    :is(#{$card-body-selectors}, #{$card-content-selectors}) {
+      justify-content: space-between;
     }
+  }
 
-    &:is([data-card-#{$direction}-justify="space-around"]) {
-        :is(#{$card-body-selectors}, #{$card-content-selectors}) {
-            justify-content: space-around;
-        }
+  &:is([data-card-#{$direction}-justify="space-around"]) {
+    :is(#{$card-body-selectors}, #{$card-content-selectors}) {
+      justify-content: space-around;
     }
+  }
 
-    &:is([data-card-#{$direction}-justify="space-evenly"]) {
-        :is(#{$card-body-selectors}, #{$card-content-selectors}) {
-            justify-content: space-evenly;
-        }
+  &:is([data-card-#{$direction}-justify="space-evenly"]) {
+    :is(#{$card-body-selectors}, #{$card-content-selectors}) {
+      justify-content: space-evenly;
     }
+  }
 
-    &:is([data-card-#{$direction}-justify="safe"]) {
-        :is(#{$card-body-selectors}, #{$card-content-selectors}) {
-            justify-content: safe center;
-        }
+  &:is([data-card-#{$direction}-justify="safe"]) {
+    :is(#{$card-body-selectors}, #{$card-content-selectors}) {
+      justify-content: safe center;
     }
+  }
 
-    &:is([data-card-#{$direction}-justify="unsafe"]) {
-        :is(#{$card-body-selectors}, #{$card-content-selectors}) {
-            justify-content: unsafe center;
-        }
+  &:is([data-card-#{$direction}-justify="unsafe"]) {
+    :is(#{$card-body-selectors}, #{$card-content-selectors}) {
+      justify-content: unsafe center;
     }
-
+  }
 }
 
 @mixin align-items($direction: column) {
-    &:is([data-card-#{$direction}-align="start"]) {
-        align-items: start;
-    }
+  &:is([data-card-#{$direction}-align="start"]) {
+    align-items: start;
+  }
 
-    &:is([data-card-#{$direction}-align="center"]) {
-        align-items: center;
-    }
+  &:is([data-card-#{$direction}-align="center"]) {
+    align-items: center;
+  }
 
-    &:is([data-card-#{$direction}-align="end"]) {
-        align-items: end;
-    }
+  &:is([data-card-#{$direction}-align="end"]) {
+    align-items: end;
+  }
 
-    &:is([data-card-#{$direction}-align="stretch"]) {
-        align-items: stretch;
-    }
+  &:is([data-card-#{$direction}-align="stretch"]) {
+    align-items: stretch;
+  }
 
-    &:is([data-card-#{$direction}-align="baseline"]) {
-        align-items: baseline;
-    }
+  &:is([data-card-#{$direction}-align="baseline"]) {
+    align-items: baseline;
+  }
 
-    &:is([data-card-#{$direction}-align="first"]) {
-        align-items: first baseline;
-    }
+  &:is([data-card-#{$direction}-align="first"]) {
+    align-items: first baseline;
+  }
 
-    &:is([data-card-#{$direction}-align="last"]) {
-        align-items: last baseline;
-    }
+  &:is([data-card-#{$direction}-align="last"]) {
+    align-items: last baseline;
+  }
 
-    &:is([data-card-#{$direction}-align="safe"]) {
-        align-items: safe center;
-    }
+  &:is([data-card-#{$direction}-align="safe"]) {
+    align-items: safe center;
+  }
 
-    &:is([data-card-#{$direction}-align="unsafe"]) {
-        align-items: unsafe center;
-    }
+  &:is([data-card-#{$direction}-align="unsafe"]) {
+    align-items: unsafe center;
+  }
 
-    &:is([data-card-#{$direction}-align="self-start"]) {
-        align-self: start;
-    }
+  &:is([data-card-#{$direction}-align="self-start"]) {
+    align-self: start;
+  }
 
-    &:is([data-card-#{$direction}-align="self-center"]) {
-        align-self: center;
-    }
+  &:is([data-card-#{$direction}-align="self-center"]) {
+    align-self: center;
+  }
 
-    &:is([data-card-#{$direction}-align="self-end"]) {
-        align-self: end;
-    }
+  &:is([data-card-#{$direction}-align="self-end"]) {
+    align-self: end;
+  }
 
-    &:is([data-card-#{$direction}-align="self-stretch"]) {
-        align-self: stretch;
-    }
+  &:is([data-card-#{$direction}-align="self-stretch"]) {
+    align-self: stretch;
+  }
 
-    &:is([data-card-#{$direction}-align="self-baseline"]) {
-        align-self: baseline;
-    }
+  &:is([data-card-#{$direction}-align="self-baseline"]) {
+    align-self: baseline;
+  }
 
-    &:is([data-card-#{$direction}-align="self-first"]) {
-        align-self: first baseline;
-    }
+  &:is([data-card-#{$direction}-align="self-first"]) {
+    align-self: first baseline;
+  }
 
-    &:is([data-card-#{$direction}-align="self-last"]) {
-        align-self: last baseline;
-    }
+  &:is([data-card-#{$direction}-align="self-last"]) {
+    align-self: last baseline;
+  }
 
-    &:is([data-card-#{$direction}-align="self-safe"]) {
-        align-self: safe center;
-    }
+  &:is([data-card-#{$direction}-align="self-safe"]) {
+    align-self: safe center;
+  }
 
-    &:is([data-card-#{$direction}-align="self-unsafe"]) {
-        align-self: unsafe center;
-    }
+  &:is([data-card-#{$direction}-align="self-unsafe"]) {
+    align-self: unsafe center;
+  }
 
-    &:is([data-card-#{$direction}-align="self-auto"]) {
-        align-self: auto;
-    }
+  &:is([data-card-#{$direction}-align="self-auto"]) {
+    align-self: auto;
+  }
 
-    &:is([data-card-#{$direction}-align="self-normal"]) {
-        align-self: normal;
-    }
-
+  &:is([data-card-#{$direction}-align="self-normal"]) {
+    align-self: normal;
+  }
 }
 
 @mixin image-align-self($direction: column) {
-    &:is([data-card-#{$direction}-image-align-self="start"]) {
-        :is(#{$card-picture-selectors}) {
-            align-self: start;
-        }
+  &:is([data-card-#{$direction}-image-align-self="start"]) {
+    :is(#{$card-picture-selectors}) {
+      align-self: start;
     }
+  }
 
-    &:is([data-card-#{$direction}-image-align-self="center"]) {
-        :is(#{$card-picture-selectors}) {
-            align-self: center;
-        }
+  &:is([data-card-#{$direction}-image-align-self="center"]) {
+    :is(#{$card-picture-selectors}) {
+      align-self: center;
     }
+  }
 
-    &:is([data-card-#{$direction}-image-align-self="end"]) {
-        :is(#{$card-picture-selectors}) {
-            align-self: end;
-        }
+  &:is([data-card-#{$direction}-image-align-self="end"]) {
+    :is(#{$card-picture-selectors}) {
+      align-self: end;
     }
+  }
 
-    &:is([data-card-#{$direction}-image-align-self="stretch"]) {
-        :is(#{$card-picture-selectors}) {
-            align-self: stretch;
-        }
+  &:is([data-card-#{$direction}-image-align-self="stretch"]) {
+    :is(#{$card-picture-selectors}) {
+      align-self: stretch;
     }
+  }
 }
 
+@mixin backdrop-direction($direction) {
+  @if ($direction == "to-top") {
+    --card-backdrop-direction: in oklch to top;
+  } @else if($direction == "to-bottom") {
+    --card-backdrop-direction: in oklch to bottom;
+  } @else if($direction == "to-left") {
+    --card-backdrop-direction: in oklch to left;
+  } @else if($direction == "to-right") {
+    --card-backdrop-direction: in oklch to right;
+  } @else if($direction == "to-top-right") {
+    --card-backdrop-direction: in oklch to top right;
+  } @else if($direction == "to-top-left") {
+    --card-backdrop-direction: in oklch to top left;
+  } @else if($direction == "to-bottom-right") {
+    --card-backdrop-direction: in oklch to bottom right;
+  } @else if($direction == "to-bottom-left") {
+    --card-backdrop-direction: in oklch to bottom left;
+  } @else if($direction == "uniform") {
+    --card-backdrop-color-stop-from-opacity: 0.45;
+    --card-backdrop-color-stop-to-opacity: 0.45;
+  } @else {
+    @error 'The argument $direction: `#{$direction}` is of incorrect type. Type of `to-top`, `to-bottom`, `to-left`, `to-right`, `to-top-right`, `to-top-left`, `to-bottom-right`, `to-bottom-left`, `uniform` is required!';
+  }
+}
 
+@mixin backdrop-layout-direction($layout, $direction) {
+  @if ($layout == "column" or $layout == "row") {
+    &[data-card-overlay-backdrop-direction-#{$layout}="#{$direction}"] {
+        @include backdrop-direction($direction);
+    }
+  } @else {
+    @error 'The argument $layout: `#{$layout}` is of incorrect type. Type of `column` or `row` is required!';
+  }
+}
+
+@mixin psuedo-backdrop($psuedo: before) {
+  @if ($psuedo == "before" or $psuedo == "after") {
+    isolation: isolate;
+    &:#{$psuedo} {
+      content: "";
+      display: block;
+      width: 100%;
+      inset: 0;
+      position: absolute;
+      height: 100%;
+      border-image: #{$card-backdrop};
+      z-index: -1;
+    }
+  } @else {
+    @error 'The argument $psuedo: `#{$psuedo}` is of incorrect type. Type of `before` or `after` is required!';
+  }
+}
 
 @mixin column-rules() {
-    @include text-align(column);
-    @include justify-content(column);
-    @include align-items(column);
-    @include image-align-self(column);
+  @include text-align(column);
+  @include justify-content(column);
+  @include align-items(column);
+  @include image-align-self(column);
 
-    @each $size in $card-content-size-list {
-        @include grid-template-content-sizes(column, 0, $size);
-        @include grid-template-content-sizes(column, 1, $size);
+  @each $size in $card-content-size-list {
+    @include grid-template-content-sizes(column, 0, $size);
+    @include grid-template-content-sizes(column, 1, $size);
+  }
+
+  @each $direction in $card-backdrop-directions {
+    @include backdrop-layout-direction("column", $direction);
+  }
+
+  &:where([data-card-column-reverse-order]) {
+    &:has(#{$card-picture-selectors}:first-child) {
+      #{$card-body-selectors} {
+        order: 0;
+      }
+
+      #{$card-picture-selectors} {
+        order: 1;
+      }
     }
+  }
 
-    &:where([data-card-column-reverse-order]) {
-        &:has(#{$card-picture-selectors}:first-child) {
-            #{$card-body-selectors} {
-                order: 0;
-            }
+  &:where([data-card-column-reverse-order]) {
+    &:has(#{$card-picture-selectors}:not(:first-child)) {
+      #{$card-body-selectors} {
+        order: 1;
+      }
 
-            #{$card-picture-selectors} {
-                order: 1;
-            }
-        }
+      #{$card-picture-selectors} {
+        order: 0;
+      }
     }
+  }
 
-    &:where([data-card-column-reverse-order]) {
-        &:has(#{$card-picture-selectors}:not(:first-child)) {
-            #{$card-body-selectors} {
-                order: 1;
-            }
-
-            #{$card-picture-selectors} {
-                order: 0;
-            }
-        }
-    }
-
-    :where(#{$card-picture-selectors}) {
-        align-self: start;
-    }
+  :where(#{$card-picture-selectors}) {
+    align-self: start;
+  }
 }
 
 @mixin row-rules() {
-    @include text-align(row);
-    @include justify-content(row);
-    @include align-items(row);
-    @include image-align-self(row);
+  @include text-align(row);
+  @include justify-content(row);
+  @include align-items(row);
+  @include image-align-self(row);
 
-    @each $size in $card-content-size-list {
-        @include grid-template-content-sizes(row, 0, $size);
-        @include grid-template-content-sizes(row, 1, $size);
-    }    
+  @each $size in $card-content-size-list {
+    @include grid-template-content-sizes(row, 0, $size);
+    @include grid-template-content-sizes(row, 1, $size);
+  }
 
-    &:where([data-card-row-reverse-order]) {
-        &:has(#{$card-picture-selectors}:first-child) {
-            --card-auto-row: max-content auto;
-            #{$card-body-selectors} {
-                order: 0;
-            }
+  @each $direction in $card-backdrop-directions {
+    @include backdrop-layout-direction("row", $direction);
+  }
 
-            #{$card-picture-selectors} {
-                order: 1;
-            }
-        }
+  &:where([data-card-row-reverse-order]) {
+    &:has(#{$card-picture-selectors}:first-child) {
+      --card-auto-row: var(--card-top-row, max-content) var(--card-bottom-row, auto);
+      #{$card-body-selectors} {
+        order: 0;
+      }
+
+      #{$card-picture-selectors} {
+        order: 1;
+      }
     }
+  }
 
-    &:where([data-card-row-reverse-order]) {
-        &:has(#{$card-picture-selectors}:not(:first-child)) {
-            --card-auto-row: auto max-content;
-            #{$card-body-selectors} {
-                order: 1;
-            }
+  &:where([data-card-row-reverse-order]) {
+    &:has(#{$card-picture-selectors}:not(:first-child)) {
+      --card-auto-row: var(--card-top-row, auto) var(--card-bottom-row, max-content);
+      #{$card-body-selectors} {
+        order: 1;
+      }
 
-            #{$card-picture-selectors} {
-                order: 0;
-            }
-        }
+      #{$card-picture-selectors} {
+        order: 0;
+      }
     }
+  }
 }

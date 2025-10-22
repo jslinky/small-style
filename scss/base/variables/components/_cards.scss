@@ -1,22 +1,77 @@
-@use 'sass:list';
-$card-component-selectors: ".card"!default;
-$card-picture-selectors: ".card-picture"!default;
-$card-body-selectors: ".card-body"!default;
-$card-content-selectors: ".card-body__content"!default;
-$card-caption-selectors: ".card-body__caption"!default;
-$card-title-selectors: ".card-body__content__caption-title"!default;
-$card-subtitle-selectors: ".card-body__content__caption-subtitle"!default;
-$card-body-ctas: ".card-body__content__ctas"!default;
-$card-footer-selectors: ".card-footer"!default;
+@use "sass:list";
+$card-component-selectors: ".card" !default;
+$card-picture-selectors: ".card-picture" !default;
+$card-body-selectors: ".card-body" !default;
+$card-content-selectors: ".card-body__content" !default;
+$card-caption-selectors: ".card-body__caption" !default;
+$card-title-selectors: ".card-body__content__caption-title" !default;
+$card-subtitle-selectors: ".card-body__content__caption-subtitle" !default;
+$card-body-ctas: ".card-body__content__ctas" !default;
+$card-footer-selectors: ".card-footer" !default;
 
-$card-title-heading-size: "xs"!default;
+$card-title-heading-size: "xs" !default;
 
-$card-content-sizes-fr: '0.25fr' '0.5fr' '0.75fr' '1fr' '1.25fr' '1.5fr' '1.75fr' '2fr'!default;
-$card-content-sizes-pc: '25%' '33%' '50%' '75%' '100%'!default;
-$card-content-sizes-px: '256px' '288px' '320px' '384px' '448px' '512px' '576px' '672px'!default;
-$card-content-sizes-ch: '20ch' '30ch' '40ch' '50ch' '60ch' '70ch' '80ch'!default;
+$card-content-sizes-fr: "0.25fr" "0.5fr" "0.75fr" "1fr" "1.25fr" "1.5fr"
+  "1.75fr" "2fr" !default;
+$card-content-sizes-pc: "25%" "33%" "50%" "75%" "100%" !default;
+$card-content-sizes-px: "256px" "288px" "320px" "384px" "448px" "512px" "576px"
+  "672px" !default;
+$card-content-sizes-ch: "20ch" "30ch" "40ch" "50ch" "60ch" "70ch" "80ch" !default;
 
-$card-content-size-list: list.join($card-content-sizes-fr, $card-content-sizes-pc);
-$card-content-size-list: list.join($card-content-size-list, $card-content-sizes-px);
-$card-content-size-list: list.join($card-content-size-list, $card-content-sizes-ch);
-$card-content-size-list: list.append($card-content-size-list, 'auto')!default;
+$card-content-size-list: list.join(
+  $card-content-sizes-fr,
+  $card-content-sizes-pc
+);
+$card-content-size-list: list.join(
+  $card-content-size-list,
+  $card-content-sizes-px
+);
+$card-content-size-list: list.join(
+  $card-content-size-list,
+  $card-content-sizes-ch
+);
+$card-content-size-list: list.append($card-content-size-list, "auto") !default;
+
+/// Card image masking variables
+$card-image-mask-color-from: oklch(from var(--color-dark, #000) l c h / 1) 0% !default;
+$card-image-mask-color-to: oklch(from var(--color-dark, #000) l c h / 0) 70% !default;
+
+$card-image-mask: linear-gradient(
+  to var(--card-image-mask-direction, top),
+  var(--card-image-mask-color-from, #{$card-image-mask-color-from}),
+  var(--card-image-mask-color-to, #{$card-image-mask-color-to})
+) !default;
+
+$card-backdrop-directions: 'to-top' 'to-bottom' 'to-left' 'to-right' 'to-top-right' 'to-top-left' 'to-bottom-right' 'to-bottom-left' 'uniform' !default;
+
+$card-backdrop-fill-direction: in oklch to top !default;
+$card-backdrop-fill-from: oklch(
+    from var(--card-backdrop-color-from-color, var(--color-light, #fff)) l c h /
+      var(--card-backdrop-color-stop-from-opacity, 0.9)
+  )
+  0% !default;
+
+$card-backdrop-fill-to: oklch(
+    from var(--card-backdrop-color-to-color, var(--color-light, #fff)) l c h /
+      var(--card-backdrop-color-stop-to-opacity, 0.15)
+  )
+  100% !default;
+
+$card-backdrop: var(
+  --card-backdrop-fill,
+  fill 0
+    linear-gradient(
+      var(
+        --card-backdrop-direction,
+        #{$card-backdrop-fill-direction}
+      ),
+      var(
+        --card-backdrop-color-stop-from,
+        #{$card-backdrop-fill-from}
+      ),
+      var(
+        --card-backdrop-color-stop-to,
+        #{$card-backdrop-fill-to}
+      )
+    )
+)!default;

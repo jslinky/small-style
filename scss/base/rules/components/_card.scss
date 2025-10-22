@@ -60,7 +60,7 @@
     :where(#{$card-component-selectors}) {
       @include card.grid-template-attr-sizes();
     }
-    
+
     :where(#{$card-component-selectors}):is([data-card-layout="col"]) {
       @include card.column-rules();
 
@@ -85,11 +85,11 @@
       }
 
       &:has(#{$card-picture-selectors}:first-child) {
-        --card-auto-row: auto 1fr;
+        --card-auto-row: var(--card-top-row, auto) var(--card-bottom-row, 1fr);
       }
 
       &:has(#{$card-picture-selectors}:not(:first-child)) {
-        --card-auto-row: max-content auto;
+        --card-auto-row: var(--card-top-row, max-content) var(--card-bottom-row, auto);
       }
     }
 
@@ -115,7 +115,7 @@
       }
 
       @container (inline-size > 80ch) {
-        --card-auto-row: max-content auto;
+        --card-auto-row: var(--card-top-row, max-content) var(--card-bottom-row, auto);
         grid-auto-columns: 1fr;
 
         /* Default is pic on left, body on right */
@@ -148,6 +148,23 @@
       }
     }
 
+    :where(#{$card-component-selectors}[data-card-backdrop]) {
+      &[data-surface] {
+        --card-backdrop-color-from-color: var(--surface-bg-color);
+        --card-backdrop-color-to-color: var(--surface-bg-color);
+      }
+
+      #{$card-body-selectors} {
+        @include card.psuedo-backdrop();
+      }
+    }
+
+    @each $direction in $card-backdrop-directions {
+      :where(#{$card-component-selectors}[data-card-backdrop="#{$direction}"]) {
+        @include card.backdrop-direction($direction);
+      }
+    }
+
     :where(#{$card-component-selectors}):is([data-card-layout="col"]) {
       @include card.column-rules();
     }
@@ -171,7 +188,7 @@
         }
       }
     }
-  }  
+  }
 }
 
 @include output-rules-with-scope() {
