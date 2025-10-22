@@ -2,6 +2,14 @@
 @use "sass:math";
 @use "../functions/get-color-prefix" as *;
 
+@function get-contrast($from: var(--bg-color)) {
+  @return oklch(from #{$from} clamp(var(--contrast-lightest-text, 0), (l / var(--contrast-threshold, 0.623) - 1) * -infinity, var(--contrast-darkest-text, 1)) 0 h);
+}
+
+@function get-contrast-muted($from: var(--bg-color)) {
+  @return oklch(from #{$from} clamp(var(--contrast-muted-lightest-text, 0), (l / var(--contrast-threshold, 0.623) - 1) * -infinity, var(--contrast-muted-darkest-text, 1)) 0 h);
+}
+
 @mixin generate-color-surface-text(  
   $class-name: "l",  
   $prefix: getColorPrefix()

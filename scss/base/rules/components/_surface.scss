@@ -12,8 +12,11 @@ $_color-prefix: getColorPrefix();
 
 @include output-rules-with-scope() {
   [data-surface] {
-    --color: var(--surface-color);
-    --bg-color: var(--surface-bg-color);
+    $default-surface-color: get-contrast();
+    $default-surface-color-muted: get-contrast-muted();
+    --color: var(--surface-color, #{$default-surface-color});
+    --color-muted: var(--surface-color-muted, #{$default-surface-color-muted});
+    --bg-color: var(--surface-bg-color, var(--color-light, var(--root-bg, #fff)));
     color: var(--color);
     --field-border-color: color-mix(in oklab, var(--bg-color), var(--field-border-color-tint,#000) calc(var(--surface-depth, 1) * 5%) );
     background-color: var(--bg-color);
