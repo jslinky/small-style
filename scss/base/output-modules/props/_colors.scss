@@ -1,6 +1,8 @@
 @use "../../mixins/output-rules-with-scope" as *;
 @use "../../mixins/rules/props/colors" as colors;
 
-@include output-rules-with-scope() {
-    @include colors.generateAllColors();
+@layer base.props {
+    @include output-rules-with-scope() {
+        @include colors.generateAllColors();
+    }
 }

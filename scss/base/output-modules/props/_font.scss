@@ -1,3 +1,5 @@
 @use "../../mixins/rules/props/font" as font;
 
-@include font.output-font-props();
+@layer base.props {
+    @include font.output-font-props();
+}

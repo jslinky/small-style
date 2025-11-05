@@ -1,3 +1,5 @@
 @use "../../mixins/rules/props/forms" as forms;
 
-@include forms.output-forms-props();
+@layer base.props {
+    @include forms.output-forms-props();
+}

@@ -1,5 +1,7 @@
 @use "../../mixins/rules/props/layout" as layout;
 
-@include layout.output-layout-props();
-@include layout.output-key-tokens-props();
-@include layout.output-wrapper-props();
+@layer base.props {
+    @include layout.output-layout-props();
+    @include layout.output-key-tokens-props();
+    @include layout.output-wrapper-props();
+}

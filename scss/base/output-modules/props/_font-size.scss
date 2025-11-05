@@ -1,3 +1,5 @@
 @use "../../mixins/rules/props/font-size" as fs;
 
-@include fs.output-font-size-props();
+@layer base.props {
+    @include fs.output-font-size-props();
+}

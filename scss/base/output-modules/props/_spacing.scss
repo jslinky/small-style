@@ -1,3 +1,5 @@
 @use "../../mixins/rules/props/spacing" as spacing;
 
-@include spacing.output-spacing-props();
+@layer base.props {
+    @include spacing.output-spacing-props();
+}
