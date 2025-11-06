@@ -3,7 +3,7 @@
 @use "../../../theme/" as *;
 @import "../../../theme/overrides";
 
-$space-increment: include-prop-fallbacks("space-increment", #{tokens.$space-increment});
+$space-increment: #{tokens.$space-increment};
 
 $space-3xs: calc(var(--space-2xs) / #{$space-increment}) !default;
 $space-2xs: calc(var(--space-xs) / #{$space-increment}) !default;

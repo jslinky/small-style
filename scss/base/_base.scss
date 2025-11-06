@@ -3,25 +3,7 @@
 
 // @debug 'base.scss $scopeClassName: #{$scopeClassName}';
 
-@layer tw-base, base, site, tw;
-
-@layer base {
-    @layer reset, props, components;
-
-    @layer components {
-        @layer base, modifiers, states;
-    }
-}
-
-@layer site {
-    @layer components {
-        @layer base, modifiers, states;
-    }
-}
-
-@layer tw {
-    @layer theme, components, utilities;
-}
+@use "./rules/layers" as *;
 
 @layer base.reset {
 
