@@ -98,53 +98,15 @@
     }
 
     :where(#{$card-component-selectors}[data-card-layout="overlay"]) {
-      #{$card-body-selectors} {
-        grid-row: 1 / -1;
-        grid-column: 1/ -1;
-        z-index: 1;
-        margin-inline: var(--card-body-padding-inline);
-        margin-block: var(--card-body-padding-block);
-      }
-      #{$card-picture-selectors} {
-        grid-column: 1/-1;
-        grid-row: 1/-1;
-      }
+
+      @include card.layout-overlay-default-rules();
 
       @container (inline-size <= 80ch) {
-        grid-auto-rows: 1fr;
+        @include card.layout-overlay-row-rules();
       }
 
       @container (inline-size > 80ch) {
-        --card-auto-row: var(--card-top-row, max-content) var(--card-bottom-row, auto);
-        grid-auto-columns: 1fr;
-
-        /* Default is pic on left, body on right */
-        &:is(
-            :has(:not(#{$card-picture-selectors}:first-child)),
-            :is([data-card-column-reverse-order]):has(
-                #{$card-picture-selectors}:first-child
-              )
-          ) {
-          .card-body {
-            grid-column: 1/1;
-            margin-inline-start: var(--card-body-padding-inline);
-            margin-inline-end: 0;
-          }
-        }
-
-        /* This is default */
-        &:is(
-            :has(#{$card-picture-selectors}:first-child),
-            :is([data-card-column-reverse-order]):has(
-                :not(#{$card-picture-selectors}:first-child)
-              )
-          ) {
-          #{$card-body-selectors} {
-            grid-column: 2/2;
-            margin-inline-end: var(--card-body-padding-inline);
-            margin-inline-start: 0;
-          }
-        }
+        @include card.layout-overlay-column-rules();
       }
     }
 

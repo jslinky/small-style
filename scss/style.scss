@@ -4,20 +4,4 @@
 
 @use "./base/base";
 
-@layer site {
-
-  @import "./site/rules/components/typography/fonts";  
-
-}
-
-@layer site.components {
-
-  :is(#outerWrap) {
-    height: 100%;
-  }
-
-  @import "./site/rules/components/template/header";
-  @import "./site/rules/components/template/nav";
-  @import "./site/rules/components/hero";
-  @import "./site/rules/components/login-signup";  
-}
+@use "./site/site";

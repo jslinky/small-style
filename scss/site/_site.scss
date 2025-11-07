@@ -1,0 +1,40 @@
+@use "../theme" as *;
+
+@layer site {
+
+  @import "./rules/components/typography/fonts";  
+
+}
+
+@layer site.props {
+// @include output-rules-with-scope() {
+  :root {
+    --color-brand-green-l: 0.3271;
+    --color-brand-green-c: 0.044;
+    --color-brand-green-h: 172;
+  }
+// }
+}
+
+@layer tw {
+  @theme {
+    --color-brand-green: oklch(var(--color-brand-green-l) var(--color-brand-green-c) var(--color-brand-green-h));
+    --color-brand-green-medium: oklch(from var(--color-brand-green) calc(var(--color-brand-green-l) + 0.25) calc(c + 0.05) h);    
+    --color-brand-green-light: oklch(from var(--color-brand-green) calc(var(--color-brand-green-l) + 0.45) c h);        
+    @include generate-color-surface-text("brand-green");
+    @include generate-color-surface-text("brand-green-medium");
+    @include generate-color-surface-text("brand-green-light");
+  }
+}
+
+@layer site.components {
+
+  :is(#outerWrap) {
+    height: 100%;
+  }
+
+  @import "./rules/components/template/header";
+  @import "./rules/components/template/nav";
+  @import "./rules/components/hero";
+  @import "./rules/components/login-signup";  
+}

@@ -113,7 +113,7 @@ $remainder-heading-size-tag-classes: ();
               border-radius: var(--heading-underline-border-radius, 0);
             }
           }
-          &[class*="text-center"] {
+          &:where([class*="text-center"], [style*="text-align: center"]) {
             --heading-underline-margin-inline: auto;
           }
         }

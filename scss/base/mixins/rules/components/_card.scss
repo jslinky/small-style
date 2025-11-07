@@ -64,6 +64,64 @@
   grid-auto-flow: column;
 }
 
+@mixin layout-overlay-default-rules() {
+  #{$card-body-selectors} {
+    grid-row: 1 / -1;
+    grid-column: 1/ -1;
+    z-index: 1;
+    margin-inline: var(--card-body-padding-inline);
+    margin-block: var(--card-body-padding-block);
+  }
+  #{$card-picture-selectors} {
+    grid-column: 1/-1;
+    grid-row: 1/-1;
+  }
+}
+
+@mixin layout-overlay-row-rules() {
+  grid-auto-rows: 1fr;
+}
+@mixin layout-overlay-column-rules() {
+  --card-auto-row: var(--card-top-row, max-content) var(--card-bottom-row, auto);
+  grid-auto-columns: 1fr;
+
+  /* Default is pic on left, body on right */
+  &:is(
+      :has(:not(#{$card-picture-selectors}:first-child)),
+      :is([data-card-column-reverse-order]):has(
+          #{$card-picture-selectors}:first-child
+        )
+    ) {
+    .card-body {
+      grid-column: 1/1;
+      margin-inline-start: var(--card-body-padding-inline);
+      margin-inline-end: 0;
+    }
+  }
+
+  /* This is default */
+  &:is(
+      :has(#{$card-picture-selectors}:first-child),
+      :is([data-card-column-reverse-order]):has(
+          :not(#{$card-picture-selectors}:first-child)
+        )
+    ) {
+    #{$card-body-selectors} {
+      grid-column: 2/2;
+      margin-inline-end: var(--card-body-padding-inline);
+      margin-inline-start: 0;
+    }
+  }
+}
+
+@mixin layout-overlay-direction($direction: row) {
+  @if ($direction == row) {
+    @include layout-overlay-row-rules();
+  } @else if ($direction == column) {
+    @include layout-overlay-column-rules();
+  }
+}
+
 /// baked in fallbacks for content sizing
 @mixin grid-template-content-sizes($direction: column, $order: 0, $size: 1fr) {
   @if ($direction == row) {
@@ -121,18 +179,21 @@
   &:is([data-card-#{$direction}-text-align="start"]) {
     :is(#{$card-content-selectors}) {
       text-align: start;
+      --heading-underline-margin-inline: 0 auto;
     }
   }
 
   &:is([data-card-#{$direction}-text-align="center"]) {
     :is(#{$card-content-selectors}) {
       text-align: center;
+      --heading-underline-margin-inline: auto;
     }
   }
 
   &:is([data-card-#{$direction}-text-align="end"]) {
     :is(#{$card-content-selectors}) {
       text-align: end;
+      --heading-underline-margin-inline: auto 0;
     }
   }
 }
@@ -344,7 +405,7 @@
 @mixin backdrop-layout-direction($layout, $direction) {
   @if ($layout == "column" or $layout == "row") {
     &[data-card-overlay-backdrop-direction-#{$layout}="#{$direction}"] {
-        @include backdrop-direction($direction);
+      @include backdrop-direction($direction);
     }
   } @else {
     @error 'The argument $layout: `#{$layout}` is of incorrect type. Type of `column` or `row` is required!';
@@ -411,6 +472,12 @@
   :where(#{$card-picture-selectors}) {
     align-self: start;
   }
+
+  &:where([data-card-column-overlay]) {
+    @include layout-overlay-default-rules();
+    @include layout-overlay-direction(column);
+  }
+
 }
 
 @mixin row-rules() {
@@ -430,7 +497,8 @@
 
   &:where([data-card-row-reverse-order]) {
     &:has(#{$card-picture-selectors}:first-child) {
-      --card-auto-row: var(--card-top-row, max-content) var(--card-bottom-row, auto);
+      --card-auto-row: var(--card-top-row, max-content)
+        var(--card-bottom-row, auto);
       #{$card-body-selectors} {
         order: 0;
       }
@@ -443,7 +511,8 @@
 
   &:where([data-card-row-reverse-order]) {
     &:has(#{$card-picture-selectors}:not(:first-child)) {
-      --card-auto-row: var(--card-top-row, auto) var(--card-bottom-row, max-content);
+      --card-auto-row: var(--card-top-row, auto)
+        var(--card-bottom-row, max-content);
       #{$card-body-selectors} {
         order: 1;
       }
@@ -452,5 +521,10 @@
         order: 0;
       }
     }
+  }
+
+  &:where([data-card-row-overlay]) {
+    @include layout-overlay-default-rules();
+    @include layout-overlay-direction(row);
   }
 }
