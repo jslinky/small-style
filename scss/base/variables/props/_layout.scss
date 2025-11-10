@@ -1,6 +1,6 @@
 // Import theme overrides first
 @use "../../../theme/" as *;
-@import "../../../theme/overrides";
+@import "../../../theme/overrides-proxy";
 
 $layout-column-min: 30ch !default;
 $layout-gap: min(3vmax, include-prop-fallbacks("space-xl", 1rem)) !default;

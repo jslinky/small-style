@@ -2,7 +2,7 @@
 // Import theme overrides first
 @use "./layout" as layout;
 @use "../../../theme/" as *;
-@import "../../../theme/overrides";
+@import "../../../theme/overrides-proxy";
 
 // Set defaults with potential overrides from theme
 $root-max-wrapper-width: 1440px !default;

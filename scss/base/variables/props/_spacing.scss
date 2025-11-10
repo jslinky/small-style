@@ -1,7 +1,7 @@
 // Import theme overrides first
 @use "./key-tokens" as tokens;
 @use "../../../theme/" as *;
-@import "../../../theme/overrides";
+@import "../../../theme/overrides-proxy";
 
 $space-increment: #{tokens.$space-increment};
 

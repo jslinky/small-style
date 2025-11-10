@@ -1,4 +1,7 @@
-@use './overrides';
+// Import overrides via proxy (allows NPM package to redirect)
+@use './overrides-proxy' as overrides;
+
+// Forward framework core
 @forward "../base/variables";
 @forward "../base/mixins";
 @forward "../base/functions";

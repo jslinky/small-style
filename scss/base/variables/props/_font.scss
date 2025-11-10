@@ -1,6 +1,6 @@
 @use "sass:string";
 // Import theme overrides first
-@import "../../../theme/overrides";
+@import "../../../theme/overrides-proxy";
 
 $font-family-base: 'system-ui, sans-serif' !default;
 $font-family-heading: string.unquote("Calibri, Seravek, 'Gill Sans Nova', Ubuntu, 'DejaVu Sans', source-sans-pro, sans-serif") !default;

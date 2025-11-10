@@ -1,7 +1,7 @@
 @use "sass:meta";
 @use "../../functions/get-color-prefix" as *;
 @use "../../functions/overrides" as *;
-@use "../../../theme/overrides" as overrides;
+@use "../../../theme/overrides-proxy" as overrides;
 
 
 $_colorNamePrefix: getColorPrefix();

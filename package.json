@@ -1,15 +1,19 @@
 {
   "name": "@gardners/styles",
   "version": "1.0.0",
-  "description": "Gardners styling framework",
+  "description": "Gardners styling framework - customizable SCSS framework",
   "main": "dist/style.css",
+  "sass": "scss/index.scss",
+  "style": "dist/style.css",
   "files": [
     "dist/",
     "scss/",
-    "tailwind/"
+    "scripts/",
+    "templates/"
   ],
   "scripts": {
-    "build": "sass scss/style.scss:dist/style.css --style=compressed --load-path=node_modules",    
+    "postinstall": "node scripts/setup.js",
+    "build": "sass scss/index.scss:dist/style.css --style=compressed --load-path=node_modules",    
     "build:reset": "sass scss/base/output-modules/_reset.scss:dist/modules/reset.css --load-path=node_modules",
     "build:base": "sass scss/base/output-modules/_base.scss:dist/modules/base.css --load-path=node_modules",
     "build:fluid-type": "sass scss/base/output-modules/components/typography/_fluid-type.scss:dist/modules/components/typography/fluid-type.css --load-path=node_modules",
