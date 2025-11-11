@@ -113,11 +113,6 @@ $button-font-size: (
     @if $state == hover or $state == focus {
       &:#{$state} {
         @include inverted-state-rule-output($state);
-        // --_button-inverted-bg-#{$state}: color-mix(in oklab, var(--button-color), calc(var(--button-bg-#{$state}-depth, 1) * 10%) var(--button-bg-#{$state}-color-mix, oklch(from var(--button-color) clamp(0, (l / 0.623 - 1) * -infinity, 1) 0 h))  );
-        // --_button-inverted-border-#{$state}: color-mix(in oklab, var(--button-bg), calc(var(--button-bg-#{$state}-depth, 1) * 10%) var(--button-bg-#{$state}-color-mix, oklch(from var(--button-color) clamp(0, (l / 0.623 - 1) * -infinity, 1) 0 h))  );
-        // --button-bg: var(--button-inverted-bg-#{$state}, var(--_button-inverted-bg-#{$state}));
-        // --button-fg: var(--button-inverted-fg-#{$state}, var(--button-color-contrast));
-        // --button-border: var(--button-inverted-border-#{$state}, var(--_button-inverted-border-#{$state}));
       }
     }
   }
@@ -138,11 +133,6 @@ $button-font-size: (
         @if $state == hover or $state == focus {
           &.button--#{$color}:#{$state} {
             @include inverted-state-color-variation($color, $state);
-            // --_button-inverted-bg-#{$state}: color-mix(in oklab, var(--button-color), calc(var(--button-bg-#{$state}-depth, 1) * 10%) var(--button-bg-#{$state}-color-mix, oklch(from var(--button-color) clamp(0, (l / 0.623 - 1) * -infinity, 1) 0 h))  );
-            // --_button-inverted-border-#{$state}: color-mix(in oklab, var(--button-bg), calc(var(--button-bg-#{$state}-depth, 1) * 10%) var(--button-bg-#{$state}-color-mix, oklch(from var(--button-color) clamp(0, (l / 0.623 - 1) * -infinity, 1) 0 h))  );
-            // --button-bg: var(--button-inverted-bg-#{$color}-#{$state}, var(--_button-inverted-bg-#{$state}));
-            // --button-fg: var(--button-inverted-fg-#{$color}-#{$state}, var(--button-color-contrast));
-            // --button-border: var(--button-inverted-border-#{$color}-#{$state}, var(--_button-inverted-border-#{$state}));
           }
         }
       }

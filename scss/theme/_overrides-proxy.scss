@@ -2,4 +2,4 @@
 // This file forwards to the external overrides in the consuming project
 // Path: styles/_overrides.scss
 
-@forward "../../../../styles/_overrides";
+@forward "./overrides-build";

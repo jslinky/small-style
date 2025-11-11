@@ -15,6 +15,10 @@
     }
   }
 
+  @layer tw-base {
+      @layer theme, components;
+  }  
+
   @layer tw {
     @layer theme, components, utilities;
   }
