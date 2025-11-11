@@ -1,11 +1,11 @@
-# @gardners/styles
+# small-style
 
 A customizable CSS framework built with SCSS that provides a comprehensive design system with variables, components, and utilities.
 
 ## Installation
 
 ```bash
-npm install @gardners/styles
+npm install small-style
 ```
 
 The post-install script will automatically create:
@@ -29,7 +29,7 @@ Import the framework directly and customize:
 
 ```scss
 // Make sure you have styles/_overrides.scss with your customizations
-@import '@gardners/styles';
+@import 'small-style/scss/index';
 ```
 
 ## Customization
@@ -75,7 +75,7 @@ You can customize where the styles files are created:
 
 **Environment Variables:**
 ```bash
-GARDNERS_STYLES_DIR=assets/scss npm install @gardners/styles
+SMALL_STYLES_DIR=assets/scss npm install small-style
 ```
 
 **Auto-Detection:** The setup automatically detects common patterns like `src/scss/`, `assets/styles/`, etc.
@@ -103,7 +103,7 @@ The framework provides only the base styles. Site-specific styles should be adde
 
 ```scss
 // In your styles/main.scss or similar
-@import '@gardners/styles';
+@import 'small-style/scss/index';
 
 @layer site {
   .your-site-components {

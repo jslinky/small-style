@@ -1,9 +1,9 @@
-// Gardners Styles - Main Entry Point
+// Small Styles - Main Entry Point
 // This is your project's main stylesheet that imports the framework
 
-// Import the Gardners Styles framework
+// Import the Small Styles framework
 // This will automatically load your overrides from ./_overrides.scss
-@import '@gardners/styles';
+@import 'small-style/scss/index';
 
 // Site-specific styles - Use the @layer site for your custom styles
 // This ensures proper cascade and organization

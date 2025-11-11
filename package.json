@@ -1,7 +1,7 @@
 {
-  "name": "@gardners/styles",
+  "name": "small-style",
   "version": "1.0.0",
-  "description": "Gardners styling framework - customizable SCSS framework",
+  "description": "Small styling framework - customizable SCSS framework",
   "main": "dist/style.css",
   "sass": "scss/index.scss",
   "style": "dist/style.css",

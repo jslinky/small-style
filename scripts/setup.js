@@ -6,10 +6,10 @@ const path = require('path');
 // Get the project root (where the package is being installed)
 const projectRoot = process.cwd();
 
-console.log('🎨 Setting up Gardners Styles...');
+console.log('🎨 Setting up Small Styles...');
 
-// Only run setup if we're not in the gardners-styles package itself
-if (path.basename(projectRoot) === 'gardners-styles') {
+// Only run setup if we're not in the small-style package itself
+if (path.basename(projectRoot) === 'small-style') {
   console.log('⏭️  Skipping setup (running in source package)');
   process.exit(0);
 }
@@ -25,12 +25,12 @@ console.log(`📁 Using styles directory: ${config.stylesDir}/`);
 
 function getConfiguration() {
   // 1. Environment variables
-  if (process.env.GARDNERS_STYLES_DIR) {
+  if (process.env.SMALL_STYLES_DIR) {
     console.log('🔧 Using environment variable configuration');
     return {
-      stylesDir: process.env.GARDNERS_STYLES_DIR,
-      overridesFile: process.env.GARDNERS_OVERRIDES_FILE || '_overrides.scss',
-      entryFile: process.env.GARDNERS_ENTRY_FILE || 'main.scss'
+      stylesDir: process.env.SMALL_STYLES_DIR,
+      overridesFile: process.env.SMALL_OVERRIDES_FILE || '_overrides.scss',
+      entryFile: process.env.SMALL_ENTRY_FILE || 'main.scss'
     };
   }
 
@@ -59,7 +59,7 @@ function getConfiguration() {
 function getPackageJsonConfig() {
   try {
     const pkg = JSON.parse(fs.readFileSync(path.join(projectRoot, 'package.json'), 'utf8'));
-    const config = pkg.gardnersStyles;
+    const config = pkg.smallStyles;
     if (config && config.stylesDir) {
       return {
         stylesDir: config.stylesDir,
@@ -106,12 +106,12 @@ try {
   // Find the package directory - handle both npm and file: installs
   let packageDir;
   try {
-    packageDir = path.dirname(require.resolve('@gardners/styles/package.json'));
+    packageDir = path.dirname(require.resolve('small-style/package.json'));
   } catch (e) {
-    // Fallback for file: dependencies - look in node_modules
-    packageDir = path.join(projectRoot, 'node_modules', '@gardners', 'styles');
+    // Fallback to node_modules path
+    packageDir = path.join(projectRoot, 'node_modules', 'small-style');
     if (!fs.existsSync(packageDir)) {
-      throw new Error('Cannot find @gardners/styles package directory');
+      throw new Error('Cannot find small-style package directory');
     }
   }
 
@@ -144,7 +144,7 @@ try {
   console.log('✅ Updated overrides proxy');
 
   console.log('');
-  console.log('🎉 Gardners Styles setup complete!');
+  console.log('🎉 Small Styles setup complete!');
   console.log('');
   console.log('Next steps:');
   console.log(`1. Customize variables in ${config.stylesDir}/${config.overridesFile}`);
@@ -152,7 +152,7 @@ try {
   console.log(`3. Add your custom styles to ${config.stylesDir}/${config.entryFile}`);
 
 } catch (error) {
-  console.error('❌ Error setting up Gardners Styles:', error.message);
+  console.error('❌ Error setting up Small Styles:', error.message);
   process.exit(1);
 }
 

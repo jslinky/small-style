@@ -3,7 +3,7 @@
 @import "../../../theme/overrides-proxy";
 
 $layout-column-min: 30ch !default;
-$layout-gap: min(3vmax, include-prop-fallbacks("space-xl", 1rem)) !default;
+$layout-gap: 1rem !default;  // Simplified to avoid calculation issues
 // $layout-gap: var(--spacing-gutter);
 
 // Grid layout
