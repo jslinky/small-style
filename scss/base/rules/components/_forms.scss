@@ -69,9 +69,47 @@
     }
   }
 
-  :where(input) {
+  :where(input, textarea, select) {
     @layer base {
       @include forms.input-base-rules();
+    }    
+    @layer modifiers {
+      @include forms.input-size-variants();
+    }    
+    @layer states {
+      @if ($include-form-input-states) {
+        @include forms.form-element-states();        
+        // &:is(#{$input-text-selectors-sans-number}) {          
+          // &:focus-within {
+          //   outline-color: var(
+          //     --input-outline-color-focused,
+          //     var(--_outline-color-focused)
+          //   );
+          // }
+          // &:is([minlength], [pattern], [required]) {
+          //   @container style(--eager:true) {
+          //     &:invalid:not(:placeholder-shown) {
+          //       outline-color: red;
+          //     }
+          //     &:valid {
+          //       outline-color: green;
+          //     }
+          //   }
+          //   &:user-invalid:not(:placeholder-shown) {
+          //     outline-color: red;
+          //   }
+          //   &:user-valid {
+          //     outline-color: green;
+          //   }            
+          // }
+        // }
+      }
+    }    
+  }
+
+  :where(input) {
+    @layer base {
+      // @include forms.input-base-rules();
       &:is(#{$input-text-selectors}) {
         @include forms.input-text-rules();
       }
@@ -79,38 +117,46 @@
         @include forms.input-box-rules();
       }
     }
-    @layer modifiers {
-      @include forms.input-size-variants();
-    }
-    @layer states {
-      @if ($include-form-input-states) {
-        &:is(#{$input-text-selectors-sans-number}):is(
-            [minlength],
-            [pattern],
-            [required]
-          ) {
-          &:focus-within {
-            outline-color: var(
-              --input-outline-color-focused,
-              var(--_outline-color-focused)
-            );
-          }
-          &:invalid:not(:placeholder-shown) {
-            outline-color: red;
-          }
-          &:valid {
-            outline-color: green;
-          }
-        }
-      }
-    }
+    // @layer modifiers {
+    //   @include forms.input-size-variants();
+    // }
+    // @layer states {
+    //   @if ($include-form-input-states) {
+    //     &:is(#{$input-text-selectors-sans-number}) {
+    //       &:focus-within {
+    //         outline-color: var(
+    //           --input-outline-color-focused,
+    //           var(--_outline-color-focused)
+    //         );
+    //       }
+    //       &:is([minlength], [pattern], [required]) {
+    //         @container style(--eager:true) {
+    //           &:invalid:not(:placeholder-shown) {
+    //             outline-color: red;
+    //           }
+    //           &:valid {
+    //             outline-color: green;
+    //           }
+    //         }
+    //         &:user-invalid:not(:placeholder-shown) {
+    //           outline-color: red;
+    //         }
+    //         &:user-valid {
+    //           outline-color: green;
+    //         }            
+    //       }
+    //     }
+    //   }
+    // }
   }
 
-  :where(textarea) {
+  :where(textarea, select) {
     @layer base {
       @include forms.input-text-rules();
     }
   }
+
+
 
   @include forms.input-size-variants(
     ':where(input:is([type="radio"], [type="checkbox"]))',

@@ -23,6 +23,7 @@ $input-text-rules: (
     "padding-inline": var(--input-text-frame-x, var(--text-frame-x)),
     "padding-block": var(--input-text-frame-y, var(--text-frame-y)),
     "outline": var(--input-outline, var(--input-outline-width, 1px) solid var(--input-outline-color, var(--_outline-color))),
+    "border-radius": var(--input-text-radius, max(var(--input-text-max-radius, var(--radius)), var(--radius)))
 );
 
 $input-box-rules: (
@@ -31,10 +32,11 @@ $input-box-rules: (
     "height": var(--_fs),
     "padding-inline": var(--input-box-frame-x, 1em),
     "padding-block": var(--input-box-frame-y, 1em),    
+    "border-radius": var(--input-box-radius, max(var(--input-box-max-radius, 0.5rem), var(--radius)))
 );
 
 $input-base-color: var(--input-color, var(--color, CanvasText));
 $input-base-bg: var(--input-bg, Canvas); 
 $input-base-fs: var(--input-fs, 1em);     
-$input-base-outline-color: color-mix(in oklch, var(--_bg) 90%, black);
-$input-base-outline-color-focused: color-mix(in oklch, var(--input-outline-color, var(--_outline-color)) 90%, black);
+$input-base-outline-color: color-mix(in oklch, var(--_bg) 90%, var(--input-outline-mix-color, black));
+$input-base-outline-color-focused: color-mix(in oklch, var(--input-outline-color, var(--_outline-color)) 70%, var(--input-outline-mix-color-focused, var(--input-outline-mix-color, black) ));
