@@ -8,3 +8,13 @@ $grey-tint-color: 'primary' !default;
 $grey-tint-chroma: 0.02 !default;
 $surface-colors: "primary" "secondary" "tertiary" "grey" "dark" "light"!default;
 $include-prop-fallbacks: true!default;
+
+/// module includes 
+$include-forms: true !default;
+/// TODO: implement these
+// $include-buttons: true !default;
+// $include-cards: true !default;
+// $include-collapse: true !default;
+// $include-headings: true !default;
+// $include-breakpoints: true !default;
+// $include-layout: true !default;
