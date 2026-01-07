@@ -5,8 +5,8 @@
 @import "../../../theme/overrides-proxy";
 
 // Set defaults with potential overrides from theme
-$root-max-wrapper-width: 1440px !default;
-$max-wrapper-width: var(--root-max-wrapper-width, #{$root-max-wrapper-width}) !default;
+$root-max-wrapper-width: 1440 !default;
+$max-wrapper-width: calc(var(--root-max-wrapper-width, #{$root-max-wrapper-width}) * 1px) !default;
 $wrapper-padding: include-prop-fallbacks("layout-gap", #{layout.$layout-gap})!default;
 $wrapper-padding-min: string.unquote("clamp(#{include-prop-fallbacks("layout-gap", #{layout.$layout-gap})}, 2vw, (#{include-prop-fallbacks("layout-gap", #{layout.$layout-gap})} * 2))") !default;
 $wrapper-inline: string.unquote("max(#{include-prop-fallbacks("wrapper-padding-min", #{$wrapper-padding-min})}, calc(50vw - var(--wrapper-width) / 2 + #{include-prop-fallbacks("wrapper-padding", #{$wrapper-padding})} * 2 / 2))") !default;
@@ -22,7 +22,7 @@ $register-wrapper: (
     'max-wrapper-width': (
         'syntax': "*",
         'inherits': true,
-        'initial-value': #{$root-max-wrapper-width}
+        'initial-value': calc(#{$root-max-wrapper-width} * 1px)
     ),
     'wrapper-padding': (
         'syntax': "*",
