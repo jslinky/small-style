@@ -8,7 +8,7 @@
     .#{$collapse} {
       @include c.base-collapse-rules();
 
-      .#{$collapse_content} {
+      &::details-content {
         @include c.base-collapse-content-rules();
       }
 
@@ -21,7 +21,7 @@
           @include c.base-collapse-icon-open-rules();
         }
 
-        .#{$collapse_content} {
+        &::details-content {
           @include c.base-collapse-content-open-rules();
         }
       }
