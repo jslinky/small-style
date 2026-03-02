@@ -5,8 +5,12 @@
 $_font: meta.module-variables("font");
 
 // Font family related variables
-@mixin output-font-props() {
-    @include output-rules-with-scope() {
+@mixin output-font-props($with-scope: true) {
+     @if $with-scope {
+        @include output-rules-with-scope() {
+            @include output-props(pick-keys($_font, 'font-family-base' 'font-family-heading' 'font-heading-weight')...); 
+        }
+    } @else {
         @include output-props(pick-keys($_font, 'font-family-base' 'font-family-heading' 'font-heading-weight')...); 
     }
 }

@@ -3,6 +3,7 @@
 
 // For now, using gardners25 overrides as the primary project
 // This will need to be updated when switching between projects during development
+$baseResetRulesScopeClassName: ':root:is(.new) :is(#body, .c-footer)';
 
 // Font customization  
 $font-family-base: var(--font-source-sans);
@@ -27,7 +28,7 @@ $tertiary-l: 0.8735;
 $tertiary-c: 0.0578;
 $tertiary-h: 236.52;
 
-$button-selectors: '.button';
+$button-selectors: '.button, .ss-button';
 
 // Component includes
 $include-forms: false;

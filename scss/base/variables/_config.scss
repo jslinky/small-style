@@ -1,5 +1,5 @@
 $scopeClassName: '.new'!default; 
-$baseResetRulesScopeClassName: '#body, .c-footer, .unauthenticated'!default;
+$baseResetRulesScopeClassName: ':root:is(.new)'!default;
 $colorNamePrefix: 'color-'!default;
 $colorIncludes: 'primary' 'secondary' 'tertiary' 'dark' 'light' 'grey'!default;
 $useTailwindForColorOutput: true !default;

@@ -1,0 +1,6 @@
+@use "../../../mixins/rules/props/colors" as colors;
+
+
+@theme {
+    @include colors.generateAllColors();
+}

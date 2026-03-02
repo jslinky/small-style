@@ -1,0 +1,5 @@
+@use "../../../mixins/rules/props/spacing" as spacing;
+
+@theme {
+    @include spacing.output-spacing-props(false);
+}

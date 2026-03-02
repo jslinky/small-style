@@ -23,7 +23,7 @@
 
 @mixin anchor-not-button-styles() {
   text-decoration: none;
-  color: inherit;
+  // color: inherit;
 }
 
 @mixin all-base-styles($scopeClassName) {

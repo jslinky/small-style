@@ -1,0 +1,9 @@
+@use "../../../mixins/rules/props/font-size" as fs;
+
+@theme {
+    @include fs.output-font-size-props(false);
+}
+
+:root {
+    @include fs.font-size-pow-props();
+}

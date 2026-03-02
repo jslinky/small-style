@@ -14,9 +14,17 @@ $_spacing: meta.module-variables("spacing");
     }
 }
 
+@mixin spacing-props() {
+    @include output-props($_spacing...); 
+}
+
 // Spacing related variables
-@mixin output-spacing-props() {
-    @include output-rules-with-scope() {
-        @include output-props($_spacing...);
+@mixin output-spacing-props($with-scope: true) {
+     @if $with-scope {
+        @include output-rules-with-scope() {
+            @include spacing-props();
+        }
+    } @else {
+        @include spacing-props();
     }
 }

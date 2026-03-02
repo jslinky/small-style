@@ -62,7 +62,7 @@ $_color-prefix: getColorPrefix();
     }
   }
 
-  :where([class*="border"]) {
+  :where([class*="border"]):not(#{buttons-vars.$button-selectors}) {
       border-color: var(--field-border-color, var(--color-grey-10, #d1d5db));
   }
 

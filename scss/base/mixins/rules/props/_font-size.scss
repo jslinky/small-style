@@ -11,30 +11,40 @@ $base-font-size-marker: font-size.$base-font-size-marker;
 $font-size-list: list.nth(map.values(pick-keys($_font-size, font-size-list)), 1);
 $base-font-size: map.get($font-size-list, $base-font-size-marker);
 
-// Font-size related variables
-@mixin output-font-size-props() {
-    @include output-rules-with-scope() {
+@mixin font-size-props() {
+    @each $key, $value in pick-keys($_font-size, text-size-increment font-size-base-px font-size-base) {
+        --#{$key}: #{$value};
+    }    
 
-        @each $key, $value in pick-keys($_font-size, text-size-increment font-size-base-px font-size-base) {
-            --#{$key}: #{$value};
-        }    
-        
-        // Output pixel value variables for font-sizes (fallback)
-        @each $key, $value in get-font-size-px-values($font-size-list, $base-font-size-marker, true) {
+    // Output pixel value variables for font-sizes (fallback)
+    @each $key, $value in get-font-size-px-values($font-size-list, $base-font-size-marker, true) {
+        #{$key}: #{$value};
+    }
+
+    /// Output font-size variables
+    @each $key, $value in $font-size-list {
+        --#{$key}: calc((var(--#{$key}-px, #{$value}) / var(--font-size-base-px, #{$base-font-size})) * 1rem);
+    }
+}
+
+@mixin font-size-pow-props() {
+    // Output pixel value variables for font-sizes (uses pow)
+    @supports (--css: calc(var(--font-size-base-px) * pow(var(--text-size-increment), var(--font-level)))) {
+        @each $key, $value in get-font-size-px-values($font-size-list, $base-font-size-marker, false) {
             #{$key}: #{$value};
         }
+    }
 
-        /// Output font-size variables
-        @each $key, $value in $font-size-list {
-            --#{$key}: calc((var(--#{$key}-px, #{$value}) / var(--font-size-base-px, #{$base-font-size})) * 1rem);
+}
+
+// Font-size related variables
+@mixin output-font-size-props($with-scope: true) {
+     @if $with-scope {
+        @include output-rules-with-scope() {
+            @include font-size-props();
+            @include font-size-pow-props();
         }
-
-        // Output pixel value variables for font-sizes (uses pow)
-        @supports (--css: calc(var(--font-size-base-px) * pow(var(--text-size-increment), var(--font-level)))) {
-            @each $key, $value in get-font-size-px-values($font-size-list, $base-font-size-marker, false) {
-                #{$key}: #{$value};
-            }
-        }
-
+    } @else {
+        @include font-size-props();
     }
 }
