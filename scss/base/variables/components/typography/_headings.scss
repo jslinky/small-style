@@ -51,6 +51,7 @@ $heading-sizes: (
         "font-ratio-max": 1.5,
         "font-width-min": 375,
         "font-width-max": 1440,
+        "font-fluid-cq-variance": 0.75cqw,
     ),
     "2xl" : (
         "font-size-min": "display-sm",
@@ -59,6 +60,7 @@ $heading-sizes: (
         "font-ratio-max": 1.5,
         "font-width-min": 375,
         "font-width-max": 1440,
+        "font-fluid-cq-variance": 0.75cqw,
     ),
     "xl" : (
         "font-size-min": "display-xs",
@@ -67,6 +69,7 @@ $heading-sizes: (
         "font-ratio-max": 1.5,
         "font-width-min": 375,
         "font-width-max": 1440,
+        "font-fluid-cq-variance": 0.75cqw,
     ),
     "lg" : (
         "font-size-min": "xl",
@@ -75,6 +78,7 @@ $heading-sizes: (
         "font-ratio-max": 1.5,
         "font-width-min": 375,
         "font-width-max": 1440,
+        "font-fluid-cq-variance": 0.75cqw,
     ),
     "default" : (
         "font-size-min": "lg",
@@ -83,6 +87,7 @@ $heading-sizes: (
         "font-ratio-max": 1.5,
         "font-width-min": 375,
         "font-width-max": 1440,
+        "font-fluid-cq-variance": 0.75cqw,
     ),
     "sm" : (
         "font-size-min": "md",
@@ -91,6 +96,7 @@ $heading-sizes: (
         "font-ratio-max": 1.5,
         "font-width-min": 375,
         "font-width-max": 1440,
+        "font-fluid-cq-variance": 0.75cqw,
     ),
     "xs" : (
         "font-size-min": "sm",
@@ -99,6 +105,7 @@ $heading-sizes: (
         "font-ratio-max": 1.5,
         "font-width-min": 375,
         "font-width-max": 1440,
+        "font-fluid-cq-variance": 0.75cqw,
     )
 )!default;
 

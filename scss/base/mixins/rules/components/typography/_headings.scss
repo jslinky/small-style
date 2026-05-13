@@ -6,8 +6,17 @@
         @if $key == "font-size-min" or $key == "font-size-max" {
             $font-size-min: map-get($heading-sizes, $value);
             --#{$key}: var(--heading-#{$size}-#{$key}, var(--#{$value}-px));
+            &.fluid-cq {
+                --#{$key}: var(--heading-#{$size}-#{$key}, var(--#{$value}));
+            }
             @if($key == "font-size-max") {
-                --font-size: calc((var(--font-size-max) / var(--font-size-base-px)) * 1rem)
+                --font-size: var(--heading-#{$size}-font-size, calc((var(--font-size-max) / var(--font-size-base-px)) * 1rem));
+                &.fluid-cq {
+                    --font-size: var(--heading-#{$size}-font-size-fluid-cq, min(var(--font-size-max, var(--font-size-base-px)), calc(var(--font-size-min, var(--sm-px)) + var(--font-fluid-cq-variance, 3cqw))));
+                    &:is(.fluid) {
+                         font-size: var(--font-size);
+                    }
+                }
             }
         } @else {
             @if(map-has-key($heading , $key)) {            

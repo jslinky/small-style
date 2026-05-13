@@ -1,6 +1,6 @@
 
 @forward "./variables/config";
-@use "./variables/breakpoints" as *; // move below to components
+@forward "./variables/breakpoints"; // move below to components
 @use "./variables/components/buttons" as *;
 @use "./variables/components/forms" as *;
 @use "./variables/components/typography/headings" as *;
