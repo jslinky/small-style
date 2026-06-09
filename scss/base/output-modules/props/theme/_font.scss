@@ -1,0 +1,5 @@
+@use "../../../mixins/rules/props/font" as font;
+
+@theme {
+    @include font.output-font-props(false);
+}

@@ -1,13 +1,21 @@
 // @use "variables" as *;
+@use "sass:meta";
 @use "../theme" as *;
+@use "./variables/config" as config;
+@use "../theme/overrides-proxy" as overrides;
+@use "./functions/overrides" as *;
 
-// @debug 'base.scss $scopeClassName: #{$scopeClassName}';
+// Get the override value for baseResetRulesScopeClassName
+$_overrides: meta.module-variables("overrides");
+$baseResetRulesScopeClassName: get-override("baseResetRulesScopeClassName", config.$baseResetRulesScopeClassName, $_overrides);
+
+// @debug 'base.scss $baseResetRulesScopeClassName: #{$baseResetRulesScopeClassName}';
 
 @use "./rules/layers" as *;
 
 @layer base.reset {
 
-    :root:is(#{$baseResetRulesScopeClassName}) {
+    #{$baseResetRulesScopeClassName} {
         @import "./rules/reset";        
     }
 

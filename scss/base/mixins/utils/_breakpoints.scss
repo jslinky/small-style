@@ -65,40 +65,162 @@
 // }
 
 @mixin respond-to-container($query, $container-name: '', $container-type: inline-size) {
-  @if $query == 3xs {
-    @if $container-name != '' {
-      @container #{$container-name} (width > #{bp.$container-3xs}) {
-        @content;
-      }
-    } @else {
-      @container (width > #{bp.$container-3xs}) {
-        @content;
-      }      
-    }     
-  }
 
-  @if $query == 2xl {
-    @if $container-name != '' {
-      @container #{$container-name} (width > #{bp.$container-2xl}) {
-        @content;
-      }
-    } @else {
-      @container (width > #{bp.$container-2xl}) {
-        @content;
-      }      
-    }     
-  }
+  
+  @if $container-name != '' {
+    @container #{$container-name} (width > #{bp.$container-#{$query}}) {
+      @content;
+    }
+  } @else {
+    @container (width > #{bp.$container-#{$query}}) {
+      @content;
+    }      
+  }     
+  
 
-  @if $query == 3xl {
-    @if $container-name != '' {
-      @container #{$container-name} (width > #{bp.$container-3xl}) {
-        @content;
-      }
-    } @else {
-      @container (width > #{bp.$container-3xl}) {
-        @content;
-      }      
-    }     
-  }  
+
+  // @if $query == 3xs {
+  //   @if $container-name != '' {
+  //     @container #{$container-name} (width > #{bp.$container-3xs}) {
+  //       @content;
+  //     }
+  //   } @else {
+  //     @container (width > #{bp.$container-3xs}) {
+  //       @content;
+  //     }      
+  //   }     
+  // }
+
+  // @if $query == 2xs {
+  //   @if $container-name != '' {
+  //     @container #{$container-name} (width > #{bp.$container-2xs}) {
+  //       @content;
+  //     }
+  //   } @else {
+  //     @container (width > #{bp.$container-2xs}) {
+  //       @content;
+  //     }      
+  //   }     
+  // }
+
+  // @if $query == xs {
+  //   @if $container-name != '' {
+  //     @container #{$container-name} (width > #{bp.$container-xs}) {
+  //       @content;
+  //     }
+  //   } @else {
+  //     @container (width > #{bp.$container-xs}) {
+  //       @content;
+  //     }      
+  //   }     
+  // }  
+
+  // @if $query == sm {
+  //   @if $container-name != '' {
+  //     @container #{$container-name} (width > #{bp.$container-sm}) {
+  //       @content;
+  //     }
+  //   } @else {
+  //     @container (width > #{bp.$container-sm}) {
+  //       @content;
+  //     }      
+  //   }     
+  // }  
+
+  // @if $query == md {
+  //   @if $container-name != '' {
+  //     @container #{$container-name} (width > #{bp.$container-md}) {
+  //       @content;
+  //     }
+  //   } @else {
+  //     @container (width > #{bp.$container-md}) {
+  //       @content;
+  //     }      
+  //   }     
+  // }  
+
+  // @if $query == lg {
+  //   @if $container-name != '' {
+  //     @container #{$container-name} (width > #{bp.$container-lg}) {
+  //       @content;
+  //     }
+  //   } @else {
+  //     @container (width > #{bp.$container-lg}) {
+  //       @content;
+  //     }      
+  //   }     
+  // }  
+
+  // @if $query == xl {
+  //   @if $container-name != '' {
+  //     @container #{$container-name} (width > #{bp.$container-xl}) {
+  //       @content;
+  //     }
+  //   } @else {
+  //     @container (width > #{bp.$container-xl}) {
+  //       @content;
+  //     }      
+  //   }     
+  // }    
+
+  // @if $query == 2xl {
+  //   @if $container-name != '' {
+  //     @container #{$container-name} (width > #{bp.$container-2xl}) {
+  //       @content;
+  //     }
+  //   } @else {
+  //     @container (width > #{bp.$container-2xl}) {
+  //       @content;
+  //     }      
+  //   }     
+  // }
+
+  // @if $query == 3xl {
+  //   @if $container-name != '' {
+  //     @container #{$container-name} (width > #{bp.$container-3xl}) {
+  //       @content;
+  //     }
+  //   } @else {
+  //     @container (width > #{bp.$container-3xl}) {
+  //       @content;
+  //     }      
+  //   }     
+  // }  
+
+  // @if $query == 4xl {
+  //   @if $container-name != '' {
+  //     @container #{$container-name} (width > #{bp.$container-4xl}) {
+  //       @content;
+  //     }
+  //   } @else {
+  //     @container (width > #{bp.$container-4xl}) {
+  //       @content;
+  //     }      
+  //   }     
+  // }  
+
+  // @if $query == 5xl {
+  //   @if $container-name != '' {
+  //     @container #{$container-name} (width > #{bp.$container-5xl}) {
+  //       @content;
+  //     }
+  //   } @else {
+  //     @container (width > #{bp.$container-5xl}) {
+  //       @content;
+  //     }      
+  //   }     
+  // }  
+
+  // @if $query == 2xs {
+  //   @if $container-name != '' {
+  //     @container #{$container-name} (width > #{bp.$container-2xs}) {
+  //       @content;
+  //     }
+  //   } @else {
+  //     @container (width > #{bp.$container-2xs}) {
+  //       @content;
+  //     }      
+  //   }     
+  // }  
 
 }

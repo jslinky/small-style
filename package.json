@@ -1,15 +1,19 @@
 {
-  "name": "@gardners/styles",
+  "name": "small-style",
   "version": "1.0.0",
-  "description": "Gardners styling framework",
+  "description": "Small styling framework - customizable SCSS framework",
   "main": "dist/style.css",
+  "sass": "scss/index.scss",
+  "style": "dist/style.css",
   "files": [
     "dist/",
     "scss/",
-    "tailwind/"
+    "scripts/",
+    "templates/"
   ],
   "scripts": {
-    "build": "sass scss/style.scss:dist/style.css --style=compressed --load-path=node_modules",    
+    "postinstall": "node scripts/setup.js",
+    "build": "sass scss/index.scss:dist/style.css --style=compressed --load-path=node_modules",    
     "build:reset": "sass scss/base/output-modules/_reset.scss:dist/modules/reset.css --load-path=node_modules",
     "build:base": "sass scss/base/output-modules/_base.scss:dist/modules/base.css --load-path=node_modules",
     "build:fluid-type": "sass scss/base/output-modules/components/typography/_fluid-type.scss:dist/modules/components/typography/fluid-type.css --load-path=node_modules",
@@ -28,8 +32,14 @@
     "build:forms-props": "sass scss/base/output-modules/props/_forms.scss:dist/modules/props/forms.css --load-path=node_modules",
     "build:layout-props": "sass scss/base/output-modules/props/_layout.scss:dist/modules/props/layout.css --load-path=node_modules",
     "build:spacing-props": "sass scss/base/output-modules/props/_spacing.scss:dist/modules/props/spacing.css --load-path=node_modules",    
+    "build:theme-color-props": "sass scss/base/output-modules/props/theme/_colors.scss:dist/modules/props/theme/colors.css --load-path=node_modules",
+    "build:theme-font-size-props": "sass scss/base/output-modules/props/theme/_font-size.scss:dist/modules/props/theme/font-size.css --load-path=node_modules",
+    "build:theme-font-props": "sass scss/base/output-modules/props/theme/_font.scss:dist/modules/props/theme/font.css --load-path=node_modules",
+    "build:theme-forms-props": "sass scss/base/output-modules/props/theme/_forms.scss:dist/modules/props/theme/forms.css --load-path=node_modules",
+    "build:theme-layout-props": "sass scss/base/output-modules/props/theme/_layout.scss:dist/modules/props/theme/layout.css --load-path=node_modules",
+    "build:theme-spacing-props": "sass scss/base/output-modules/props/theme/_spacing.scss:dist/modules/props/theme/spacing.css --load-path=node_modules",
     "build:register-props": "sass scss/base/rules/props/_registration.scss:dist/modules/props/registration.css --load-path=node_modules",
-    "build:all-props": "pnpm run build:color-props && pnpm run build:font-size-props && pnpm run build:font-props && pnpm run build:forms-props && pnpm run build:layout-props && pnpm run build:spacing-props",
+    "build:all-props": "pnpm run build:color-props && pnpm run build:font-size-props && pnpm run build:font-props && pnpm run build:forms-props && pnpm run build:layout-props && pnpm run build:spacing-props && pnpm run build:theme-color-props && pnpm run build:theme-font-size-props && pnpm run build:theme-font-props && pnpm run build:theme-forms-props && pnpm run build:theme-layout-props && pnpm run build:theme-spacing-props",
     "build:components": "pnpm run build:reset && pnpm run build:base && pnpm run build:fluid-type && pnpm run build:headings && pnpm run build:buttons && pnpm run build:card && pnpm run build:collapse && pnpm run build:flow && pnpm run build:forms && pnpm run build:surface && pnpm run build:timeline && pnpm run build:layout",
     "build:all": "pnpm run build:all-props && pnpm run build:components",
     "watch": "sass scss/style.scss:dist/style.css --watch --load-path=node_modules"

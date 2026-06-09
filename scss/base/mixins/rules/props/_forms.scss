@@ -5,9 +5,17 @@
 
 $_forms: meta.module-variables("forms");
 
+@mixin forms-props() {
+    @include output-props(pick-keys($_forms, accent-color)...); 
+}
+
 // Font family related variables
-@mixin output-forms-props() {
-    @include output-rules-with-scope() {
-        @include output-props(pick-keys($_forms, accent-color)...); 
+@mixin output-forms-props($with-scope: true) {
+     @if $with-scope {
+        @include output-rules-with-scope() {
+            @include forms-props(); 
+        }
+    } @else {
+        @include forms-props();
     }
 }

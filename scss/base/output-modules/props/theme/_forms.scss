@@ -1,0 +1,5 @@
+@use "../../../mixins/rules/props/forms" as forms;
+
+@theme {
+    @include forms.output-forms-props(false);
+}

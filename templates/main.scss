@@ -1,0 +1,47 @@
+// Small Styles - Main Entry Point
+// This is your project's main stylesheet that imports the framework
+
+// Import the Small Styles framework
+// This will automatically load your overrides from ./_overrides.scss
+@import 'small-style/scss/index';
+
+// Site-specific styles - Use the @layer site for your custom styles
+// This ensures proper cascade and organization
+@layer site {
+  // Add your site-specific component styles here
+  
+  // Example: Custom components
+  // .hero {
+  //   // Your hero styles
+  // }
+  
+  // .navigation {
+  //   // Your navigation styles  
+  // }
+  
+  // .custom-component {
+  //   // Your component styles
+  // }
+}
+
+// Site-specific CSS custom properties
+@layer site.props {
+  :root {
+    // Add your site-specific CSS variables here
+    
+    // Example: Brand colors
+    // --color-brand-secondary-l: 0.6;
+    // --color-brand-secondary-c: 0.15;
+    // --color-brand-secondary-h: 180;
+  }
+}
+
+// Site-specific Tailwind theme extensions (if using Tailwind)
+@layer tw {
+  @theme {
+    // Add your Tailwind theme extensions here
+    
+    // Example: Custom colors for Tailwind
+    // --color-brand-secondary: oklch(var(--color-brand-secondary-l) var(--color-brand-secondary-c) var(--color-brand-secondary-h));
+  }
+}

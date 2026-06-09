@@ -1,5 +1,6 @@
 @use "../../../theme" as *;
 @use "../../variables/props/colors" as color-props;
+@use "../../variables/components/buttons" as buttons-vars;
 @use "../../mixins/rules/components/buttons" as buttons;
 
 $_color-prefix: getColorPrefix();
@@ -22,7 +23,7 @@ $_color-prefix: getColorPrefix();
     background-color: var(--bg-color);
 
     @layer base {
-      :where(.button, button) {
+      :where(#{buttons-vars.$button-selectors}) {
         &:not(:is(#{$button-color-variations})) {
           @include buttons.inverted-rules();
         }        
@@ -35,7 +36,7 @@ $_color-prefix: getColorPrefix();
       [data-surface="#{$color}"] {
         --surface-bg-color: var(--#{$_color-prefix}#{$color});
         --surface-color: var(--#{$_color-prefix}#{$color}-contrast);
-        :where(.button, button) {
+        :where(#{buttons-vars.$button-selectors}) {
           // --button-background-color: var(--surface-color);
           // --button-color: var(--surface-bg-color);
           &:not(:is(#{$button-color-variations})) {
@@ -61,7 +62,7 @@ $_color-prefix: getColorPrefix();
     }
   }
 
-  :where([class*="border"]) {
+  :where([class*="border"]):not(#{buttons-vars.$button-selectors}) {
       border-color: var(--field-border-color, var(--color-grey-10, #d1d5db));
   }
 

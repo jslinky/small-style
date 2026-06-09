@@ -1,15 +1,10 @@
-// This file should be updated when using the base package as an npm dependency
-// Replace the relative imports with the actual npm package imports
+// NPM-ready theme index
+// This version imports overrides from the consuming project's styles directory
 
-// When base becomes an npm package, update these imports:
-// @forward "@your-org/base-scss/variables";
-// @forward "@your-org/base-scss/mixins"; 
-// @forward "@your-org/base-scss/functions";
+// Import overrides from the consuming project (created by post-install script)
+@use "../../../styles/overrides" as overrides;
 
-// For now, using relative imports during development:
+// Forward framework core from the package
 @forward "../base/variables";
 @forward "../base/mixins";
 @forward "../base/functions";
-
-// Always import your local overrides last
-@use './overrides';

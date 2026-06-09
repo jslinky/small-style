@@ -1,0 +1,34 @@
+// Overrides proxy for development - temporary hardcoded for current setup
+// TODO: When small-style becomes a proper NPM package, this will use proper path resolution
+
+// For now, using gardners25 overrides as the primary project
+// This will need to be updated when switching between projects during development
+$baseResetRulesScopeClassName: ':root:is(.new) :is(#body, .c-footer)';
+
+// Font customization  
+$font-family-base: var(--font-source-sans);
+$font-family-heading: var(--font-source-sans);
+$font-heading-weight: 800;
+
+// Layout settings
+$root-max-wrapper-width: 1200;
+$space-increment: 1.38;
+$radius: 1rem;
+
+// Colors with proper SCSS values (no CSS custom properties)
+$primary-l: 0.5874;
+$primary-c: 0.1373;
+$primary-h: 241.77;
+
+$secondary-l: 0.45;
+$secondary-c: 0.1373;
+$secondary-h: 241.77;
+
+$tertiary-l: 0.8735;
+$tertiary-c: 0.0578;
+$tertiary-h: 236.52;
+
+$button-selectors: '.button, .ss-button';
+
+// Component includes
+$include-forms: false;

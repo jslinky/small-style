@@ -2,6 +2,7 @@
 @use "../../../theme" as *;
 @use "../../variables/components/typography/headings" as *;
 @use "../../variables/components/cards" as *;
+@use "../../variables/components/buttons" as buttons-vars;
 @use "../../mixins/rules/components/card" as card;
 @use "../../mixins/rules/components/flow" as *;
 @use "../../mixins/rules/components/typography/fluid-type" as fluid;
@@ -11,7 +12,7 @@
     :where(#{$card-component-selectors}) {
       @include card.default-rules();
 
-      :where(.button, button) {
+      :where(#{buttons-vars.$button-selectors}) {
         @include card.link();
       }
     }

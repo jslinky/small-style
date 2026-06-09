@@ -13,7 +13,7 @@
 $font-family-base: var(--font-source-sans);
 $font-family-heading: var(--font-source-sans);
 $font-heading-weight: 800;
-$root-max-wrapper-width: 1200px;
+$root-max-wrapper-width: 1200;
 $layout-gap: max(2vmax, var(--space-lg, 1rem));
 $layout-gap: max(min(2vmax, var(--space-xl)), var(--space-lg, 1rem));
 $space-increment: 1.38;
@@ -34,6 +34,8 @@ $tertiary-l: 0.8735;
 $tertiary-c: 0.0578;
 $tertiary-h: 236.52;
 
-$button-selectors: '.button';
+$button-selectors: '.button, .ss-button';
 
 $radius: 1rem;
+
+$include-forms: false;

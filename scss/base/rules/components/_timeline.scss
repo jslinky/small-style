@@ -48,7 +48,7 @@
         }
 
         &:nth-of-type(odd) {
-          .c-timeline__item-inner {
+          #{$timeline-item-inner-selector} {
             &:before {
               right: calc(-1 * var(--total-gap));
             }
@@ -56,7 +56,7 @@
         }
 
         &:nth-of-type(even) {
-          .c-timeline__item-inner {
+          #{$timeline-item-inner-selector} {
             &:before {
               left: calc(-1 * var(--total-gap));
             }
@@ -104,6 +104,7 @@
     position: relative;
     background: var(--bg-color, transparent);
     grid-row: var(--index) / var(--index);
+    border-radius: var(--timeline-inner-radius, var(--radius));
   }
 
   #{$timeline-vertical-line-selector} {

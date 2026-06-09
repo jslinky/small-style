@@ -12,21 +12,46 @@ $_key-tokens: meta.module-variables("key-tokens");
 $_layout: meta.module-variables("layout");
 $_wrapper: meta.module-variables("wrapper");
 
+@mixin key-tokens-props() {
+    @include output-props(pick-keys($_key-tokens, $_valid-key-tokens-keys)...);
+}
+
+@mixin layout-props() {
+    @include output-props(pick-keys($_layout, $_valid-layout-keys)...);
+}
+
+@mixin wrapper-props() {
+    @include output-props(pick-keys($_wrapper, $_valid-wrapper-keys)...);
+}
+
 // Layout related variables
-@mixin output-key-tokens-props() {
-    @include output-rules-with-scope() {
-        @include output-props(pick-keys($_key-tokens, $_valid-key-tokens-keys)...);
+@mixin output-key-tokens-props($with-scope: true) {
+    @if $with-scope {
+        @include output-rules-with-scope() {
+            @include key-tokens-props();
+        }
+    } @else {
+        @include key-tokens-props();
+    }
+
+}
+
+@mixin output-layout-props($with-scope: true) {
+     @if $with-scope {
+        @include output-rules-with-scope() {
+            @include layout-props();
+        }
+    } @else {
+        @include layout-props();
     }
 }
 
-@mixin output-layout-props() {
-    @include output-rules-with-scope() {
-        @include output-props(pick-keys($_layout, $_valid-layout-keys)...);
-    }
-}
-
-@mixin output-wrapper-props() {
-    @include output-rules-with-scope() {
-        @include output-props(pick-keys($_wrapper, $_valid-wrapper-keys)...);
+@mixin output-wrapper-props($with-scope: true) {
+     @if $with-scope {
+        @include output-rules-with-scope() {
+            @include wrapper-props();
+        }
+    } @else {
+        @include wrapper-props();
     }
 }

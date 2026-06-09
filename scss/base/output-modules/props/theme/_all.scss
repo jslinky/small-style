@@ -1,0 +1,17 @@
+@use "../../../mixins/rules/props/colors" as colors;
+@use "../../../mixins/rules/props/font-size" as fs;
+@use "../../../mixins/rules/props/font" as font;
+@use "../../../mixins/rules/props/forms" as forms;
+@use "../../../mixins/rules/props/layout" as layout;
+@use "../../../mixins/rules/props/spacing" as spacing;
+
+@theme {
+    @include colors.generateAllColors();
+    @include fs.output-font-size-props();
+    @include font.output-font-props();
+    @include forms.output-forms-props();
+    @include layout.output-layout-props();
+    @include layout.output-key-tokens-props();
+    @include layout.output-wrapper-props();    
+    @include spacing.output-spacing-props();
+}

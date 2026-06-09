@@ -1,0 +1,12 @@
+// This function generates a contrast color for a given color based on its L, C, and H values. It uses the oklch color space and clamps the contrast color's lightness based on the contrast threshold and the specified lightest and darkest text colors for that color.
+@function generateColorContrast($color-name, $color-l, $color-c, $color-h) {
+  @return oklch(
+    from oklch($color-l $color-c $color-h)
+      clamp(
+        var(--#{$color-name}-contrast-lightest-text, var(--contrast-lightest-text, 0)),
+        (l / var(--contrast-threshold, 0.623) - 1) * -infinity,
+        var(--#{$color-name}-contrast-darkest-text, var(--contrast-darkest-text, 1))
+      )
+      0 h
+  );
+}
