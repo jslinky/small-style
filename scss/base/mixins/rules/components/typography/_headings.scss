@@ -1,10 +1,11 @@
+@use "sass:map";
 @use "../../../../variables/components/typography/headings" as *;
 
 @mixin heading-size($size: "default", $heading-sizes) {
-    $heading: map-get($heading-sizes, $size);
+    $heading: map.get($heading-sizes, $size);
     @each $key, $value in $heading {         
         @if $key == "font-size-min" or $key == "font-size-max" {
-            $font-size-min: map-get($heading-sizes, $value);
+            $font-size-min: map.get($heading-sizes, $value);
             --#{$key}: var(--heading-#{$size}-#{$key}, var(--#{$value}-px));
             &.fluid-cq {
                 --#{$key}: var(--heading-#{$size}-#{$key}, var(--#{$value}));
@@ -28,15 +29,15 @@
 
 @mixin output-heading-rules($map, $heading-name, $heading-sizes) {
   @if (map-has-key($map, "size")) {
-    $size: map-get($map, "size");
+    $size: map.get($map, "size");
     @include heading-size($size, $heading-sizes);
   }
 
-    $text-transform: if(map-has-key($map, "text-transform"), if(map-get($map, "text-transform") != '', map-get($map, "text-transform"), none), none);
-    $letter-spacing: if(map-has-key($map, "letter-spacing"), if(map-get($map, "letter-spacing") != '', map-get($map, "letter-spacing"), normal), normal);
-    $line-height: if(map-has-key($map, "line-height"), if(map-get($map, "line-height") != '', map-get($map, "line-height"), normal), normal);
-    $color: if(map-has-key($map, "color"), if(map-get($map, "color") != '', map-get($map, "color"), inherit), inherit);
-    $font-family: if(map-has-key($map, "font-family"), if(map-get($map, "font-family") != '', map-get($map, "font-family"), var(--font-family-heading)), var(--font-family-heading));
+    $text-transform: if(map-has-key($map, "text-transform"), if(map.get($map, "text-transform") != '', map.get($map, "text-transform"), none), none);
+    $letter-spacing: if(map-has-key($map, "letter-spacing"), if(map.get($map, "letter-spacing") != '', map.get($map, "letter-spacing"), normal), normal);
+    $line-height: if(map-has-key($map, "line-height"), if(map.get($map, "line-height") != '', map.get($map, "line-height"), normal), normal);
+    $color: if(map-has-key($map, "color"), if(map.get($map, "color") != '', map.get($map, "color"), inherit), inherit);
+    $font-family: if(map-has-key($map, "font-family"), if(map.get($map, "font-family") != '', map.get($map, "font-family"), var(--font-family-heading)), var(--font-family-heading));
     
     --text-transform: var(--#{$heading-name}-text-transform, #{$text-transform});
     --letter-spacing: var(--#{$heading-name}-letter-spacing, #{$letter-spacing});
@@ -53,9 +54,41 @@
 }
 
 @mixin heading-rules-by-size($key, $heading-sizes) {
-    $value: map-get($heading-sizes , #{$key});
+    $value: map.get($heading-sizes , #{$key});
     @include heading-size(#{$key}, $heading-sizes);    
     @include output-heading-rules($value, 'heading-#{$key}', $heading-sizes);
+}
+
+@mixin output-fluid-heading-props(
+  $size: "default",
+  $is-fluid-cq: true,
+  $prop-list: "font-size-min" "font-size-max" "font-fluid-cq-variance",
+  $heading-size-map: $heading-sizes
+) {
+  @each $key, $prop in $prop-list {
+    $value: map.get(map.get($heading-size-map, $size), $key);
+    @if $key == "font-size-min" or $key == "font-size-max" {
+      $value: if($is-fluid-cq, var(--#{$value}), var(--#{$value}-px));
+    }
+    --#{$key}: #{$value};
+  }
+  $font-size: if(
+    $is-fluid-cq,
+    min(
+      var(--font-size-max, var(--font-size-base)),
+      calc(
+        var(--font-size-min, var(--sm)) + var(--font-fluid-cq-variance, 3cqw)
+      )
+    ),
+    clamp(
+      (var(--fluid-min) / 16) * 1rem,
+      ((var(--fluid-min) / 16) * 1rem) -
+        (((var(--fluid-preferred) * var(--font-width-min)) / 16) * 1rem) +
+        (var(--fluid-preferred) * var(--variable-unit, 100vi)),
+      (var(--fluid-max) / 16) * 1rem
+    )
+  );
+  --font-size: #{$font-size};
 }
 
 @mixin output-heading-rules-3xl() {
