@@ -1,0 +1,98 @@
+# small-style Release Workflow (Tarball Mode)
+
+This playbook is for releasing `small-style` without publishing to npm.
+
+## Goal
+
+- Produce a versioned tarball artifact.
+- Let each consumer choose when to upgrade.
+- Keep rollout and rollback simple.
+
+## Prerequisites
+
+1. Version is bumped in `package.json`.
+2. Build pipeline passes locally.
+3. Consumer projects reference `small-style` via `file:` tarball paths.
+
+## Release Steps
+
+### 1. Build and package
+
+```bash
+cd /path/to/small-style
+npm run build:all
+npm pack
+```
+
+Expected output file pattern:
+
+- `small-style-<version>.tgz`
+
+Example:
+
+- `small-style-1.1.0.tgz`
+
+### 2. Commit and tag
+
+```bash
+git add .
+git commit -m "chore: release 1.1.0 tarball"
+git tag v1.1.0
+git push
+git push --tags
+```
+
+## Consumer Update Steps
+
+### 1. Update dependency
+
+In each consumer, point `small-style` to the tarball you want:
+
+```json
+{
+  "dependencies": {
+    "small-style": "file:../small-style/small-style-1.1.0.tgz"
+  }
+}
+```
+
+Adjust relative path based on project location.
+
+### 2. Install and build
+
+```bash
+npm install
+```
+
+Then run that consumer's CSS build.
+
+Examples:
+
+- `lasgo-test`: `npm run build:sass`
+- `gardners25/layers/tailwind`: `npm run build:sass-once`
+
+## Version Pinning Policy
+
+Different projects may pin different `small-style` versions at the same time.
+
+Example:
+
+- Project A uses `small-style-1.0.0.tgz`
+- Project B uses `small-style-1.1.0.tgz`
+
+This allows staged adoption.
+
+## Rollback
+
+1. Change the consumer dependency back to an earlier tarball version.
+2. Run `npm install`.
+3. Re-run the CSS build.
+
+## CI Considerations
+
+Relative `file:` paths require the tarball to exist in the CI workspace.
+If that is not feasible, switch to one of:
+
+1. Shared internal artifact storage.
+2. Internal npm registry.
+3. Git tag dependency.

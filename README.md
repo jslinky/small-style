@@ -11,6 +11,67 @@ npm install small-style
 The post-install script will automatically create:
 - `styles/main.scss` - Your main stylesheet entry point
 
+## Tarball Release Mode (No npm Publish Required)
+
+Use this mode when you are not publishing to npm yet.
+
+### 1. Build and pack in `small-style`
+
+```bash
+cd /path/to/small-style
+npm run build:all
+npm pack
+```
+
+This creates a versioned tarball such as `small-style-1.1.0.tgz`.
+
+### 2. Reference that tarball in each consumer
+
+Example dependency value:
+
+```json
+{
+  "dependencies": {
+    "small-style": "file:../small-style/small-style-1.1.0.tgz"
+  }
+}
+```
+
+Then install in the consumer project:
+
+```bash
+npm install
+```
+
+### 3. Validate each consumer build
+
+Examples used in this workspace:
+
+- `lasgo-test`: `npm run build:sass`
+- `gardners25/layers/tailwind`: `npm run build:sass-once`
+
+### Pinning Different Versions Per Project
+
+Yes, each project can pin a different small-style release tarball at the same time.
+
+Example:
+
+- Project A: `file:../small-style/small-style-1.0.0.tgz`
+- Project B: `file:../small-style/small-style-1.1.0.tgz`
+
+This is useful for gradual rollouts and migration testing.
+
+### CI Note
+
+Relative tarball paths only work if the tarball exists in the CI filesystem too.
+If CI cannot access local paths, use one of these options:
+
+- Store tarballs in an internal shared artifact location.
+- Publish to an internal npm registry.
+- Use a git tag dependency temporarily.
+
+For a full repeatable release checklist, see `RELEASE.md`.
+
 ## Quick Start
 
 After installation, import the generated main file in your project:
@@ -50,42 +111,6 @@ Edit `styles/main.scss` and set config values in the `@use 'small-style/scss/ind
   $button-selectors: '.button',
   $radius: 0.5rem,
 );
-```
-
-### Custom Styles Directory
-
-You can customize where the styles files are created:
-
-**Package.json Configuration:**
-```json
-{
-  "smallStyles": {
-    "stylesDir": "src/scss",
-    "entryFile": "framework.scss"
-  }
-}
-```
-
-**Environment Variables:**
-```bash
-SMALL_STYLES_DIR=assets/scss npm install small-style
-```
-
-**Auto-Detection:** The setup automatically detects common patterns like `src/scss/`, `assets/styles/`, etc.
-
-See [CONFIGURATION.md](./CONFIGURATION.md) for detailed configuration options.
-
-## Project Structure
-
-After installation, your project will have:
-
-```
-your-project/
-├── styles/
-│   └── main.scss        # Your entry point and config
-├── node_modules/
-│   └── small-style/     # Framework files
-└── ...
 ```
 
 ## Site-Specific Styles
