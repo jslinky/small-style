@@ -1,14 +1,13 @@
 @use "sass:string";
-// Import theme overrides first
 @use "./layout" as layout;
+@use "../../variables/config" as config;
 @use "../../../theme/" as *;
-@import "../../../theme/overrides-proxy";
 
-// Set defaults with potential overrides from theme
-$root-max-wrapper-width: 1440 !default;
+// Set defaults with package configuration
+$root-max-wrapper-width: config.$root-max-wrapper-width !default;
 $max-wrapper-width: calc(var(--root-max-wrapper-width, #{$root-max-wrapper-width}) * 1px) !default;
-$wrapper-padding: include-prop-fallbacks("layout-gap", #{layout.$layout-gap})!default;
-$wrapper-padding-min: string.unquote("clamp(#{include-prop-fallbacks("layout-gap", #{layout.$layout-gap})}, 2vw, (#{include-prop-fallbacks("layout-gap", #{layout.$layout-gap})} * 2))") !default;
+$wrapper-padding: include-prop-fallbacks("layout-gap", #{config.$layout-gap}) !default;
+$wrapper-padding-min: config.$wrapper-padding-min !default;
 $wrapper-inline: string.unquote("max(#{include-prop-fallbacks("wrapper-padding-min", #{$wrapper-padding-min})}, calc(50vw - var(--wrapper-width) / 2 + #{include-prop-fallbacks("wrapper-padding", #{$wrapper-padding})} * 2 / 2))") !default;
 $wrapper-width: calc(var(--max-wrapper-width, #{$max-wrapper-width}) + (var(--wrapper-padding, #{$wrapper-padding}) * 2)) !default;
 $grid-wrapper-columns: var(--start-col, var(--wrapper-inline)) var(--center-col, 1fr) var(--end-col, var(--wrapper-inline)) !default;

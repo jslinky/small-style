@@ -1,9 +1,8 @@
-// Import theme overrides first
+@use "../../variables/config" as config;
 @use "../../../theme/" as *;
-@import "../../../theme/overrides-proxy";
 
-$layout-column-min: 30ch !default;
-$layout-gap: 1rem !default;  // Simplified to avoid calculation issues
+$layout-column-min: config.$layout-column-min !default;
+$layout-gap: config.$layout-gap !default;  // Simplified to avoid calculation issues
 // $layout-gap: var(--spacing-gutter);
 
 // Grid layout
@@ -17,7 +16,7 @@ $layout-grid-template-columns: unquote(
 );
 
 /// Grid layout - define column variation
-$column-count: 4 !default;
+$column-count: config.$column-count !default;
 /* calculations */
 $breakpoint: calc(
   var(--layout-grid-min, #{$layout-grid-min}) *

@@ -1,3 +1,5 @@
+@use "sass:string";
+
 $scopeClassName: '.new'!default; 
 $baseResetRulesScopeClassName: ':root:is(.new)'!default;
 $colorNamePrefix: 'color-'!default;
@@ -8,6 +10,72 @@ $grey-tint-color: 'primary' !default;
 $grey-tint-chroma: 0.02 !default;
 $surface-colors: "primary" "secondary" "tertiary" "grey" "dark" "light"!default;
 $include-prop-fallbacks: true!default;
+
+$font-family-base: 'system-ui, sans-serif' !default;
+$font-family-heading: string.unquote("Calibri, Seravek, 'Gill Sans Nova', Ubuntu, 'DejaVu Sans', source-sans-pro, sans-serif") !default;
+$font-heading-weight: 600 !default;
+
+$use-typo-scale: true !default;
+$text-size-increment: 1.25 !default;
+$font-size-base-px: 16 !default;
+$base-font-size-marker: 'md' !default;
+$font-size-list: (
+	xxs: 10,
+	xs: 12,
+	sm: 14,
+	md: 16,
+	lg: 18,
+	xl: 20,
+	display-xs: 24,
+	display-sm: 30,
+	display-md: 36,
+	display-lg: 48,
+	display-xl: 60,
+	display-2xl: 72
+) !default;
+
+$text-frame-ratio: 2.75 !default;
+$text-frame-y: 0.725em !default;
+$space-increment: 1.42 !default;
+$unit-max: 1rem !default;
+$unit-min: calc(#{$unit-max} / 2) !default;
+$unit-fluid: 1vi !default;
+$radius: 0.35rem !default;
+$line-height-relative: 1.4em !default;
+$line-height-fixed: 0.375rem !default;
+$flow-space: 1em !default;
+$field-border-color: var(--color-grey-10, #d1d5db) !default;
+$field-border-width: 1px !default;
+
+$layout-column-min: 30ch !default;
+$layout-gap: 1rem !default;
+$column-count: 4 !default;
+$root-max-wrapper-width: 1440 !default;
+$wrapper-padding-min: string.unquote("clamp(#{$layout-gap}, 2vw, (#{$layout-gap} * 2))") !default;
+
+$fg-threshold: 0.7 !default;
+$fg-lightest-text: 0 !default;
+$fg-darkest-text: 1 !default;
+$fg-muted-lightest-text: 0.4 !default;
+$fg-muted-darkest-text: 0.9 !default;
+
+$primary-l: 0.7 !default;
+$primary-c: 0.15 !default;
+$primary-h: 256 !default;
+$secondary-l: 0.72 !default;
+$secondary-c: 0.14 !default;
+$secondary-h: 145 !default;
+$tertiary-l: 0.75 !default;
+$tertiary-c: 0.16 !default;
+$tertiary-h: 55 !default;
+$dark-l: 0.23 !default;
+$dark-c: 0 !default;
+$dark-h: 0 !default;
+$light-l: 0.97 !default;
+$light-c: 0 !default;
+$light-h: 0 !default;
+
+$button-selectors: '.button, button' !default;
 
 /// module includes 
 $include-forms: true !default;

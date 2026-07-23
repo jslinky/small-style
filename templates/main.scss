@@ -1,9 +1,15 @@
 // Small Styles - Main Entry Point
 // This is your project's main stylesheet that imports the framework
 
-// Import the Small Styles framework
-// This will automatically load your overrides from ./_overrides.scss
-@import 'small-style/scss/index';
+// Configure and import the Small Styles framework in one place.
+@use 'small-style/scss/index' with (
+  // $baseResetRulesScopeClassName: ':root:is(.new)',
+  // $font-family-base: 'Inter, sans-serif',
+  // $root-max-wrapper-width: 1400,
+  // $primary-l: 0.6,
+  // $primary-c: 0.15,
+  // $primary-h: 240,
+);
 
 // Site-specific styles - Use the @layer site for your custom styles
 // This ensures proper cascade and organization
