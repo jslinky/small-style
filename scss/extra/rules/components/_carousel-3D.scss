@@ -1,0 +1,33 @@
+@use "./../../mixins/rules/components/carousel-3D/carousel-3D" as *;
+
+/* ====== Relevant CSS ====== */
+$scene: ".carousel-3d-scene" !default;
+$container: ".carousel-3d-scene__container" !default;
+$card: ".carousel-3d-scene__card" !default;
+
+#{$scene}, #{$container} { display: grid }
+
+#{$scene} {
+    @include scene-rules();
+}
+
+#{$container} {
+	@include container-rules();
+}
+/* simplest y axis rotation */
+@include rotate-y-animation();
+
+#{$card} {
+    @include card-rules();
+}
+
+@media (prefers-reduced-motion: reduce) {
+	#{$container} { animation-duration: 128s }
+}
+
+/* ====== General page prettifying and layout ====== */
+// html, body { display: grid }
+
+// html { height: 100% }
+
+// body { background: #fff3ed }

@@ -2,25 +2,18 @@
 @use "sass:map";
 @use "sass:list";
 @use "../../../variables/config" as config;
-@use "../../../../theme/overrides-proxy" as overrides;
 @use "../../../../theme" as *;
 @use "../../../functions/get-color-prefix" as colorPrefix;
-@use "../../../functions/overrides" as *;
 
 @use "../../../variables/props/colors" as colors;
 
-/// Override colorIncludes with the value from overrides if available
-$_overrides: meta.module-variables("overrides");
 $_config: meta.module-variables("config");
 
-// Use the utility function for clean override handling
-$colorIncludes: get-override("colorIncludes", config.$colorIncludes, $_overrides) !default;
-$generateSteppedColors: get-override("generateSteppedColors", config.$generateSteppedColors, $_overrides);
-$useTailwindForColorOutput: get-override("useTailwindForColorOutput", config.$useTailwindForColorOutput, $_overrides) !default;
-$_merged-excludes: map.merge($_config , $_overrides );
-$exclude-count: list.length($_merged-excludes);
-$grey-tint-chroma: get-override("grey-tint-chroma", config.$grey-tint-chroma, $_overrides);
-$grey-tint-color: get-override("grey-tint-color", config.$grey-tint-color, $_overrides);
+$colorIncludes: config.$colorIncludes !default;
+$generateSteppedColors: config.$generateSteppedColors;
+$useTailwindForColorOutput: config.$useTailwindForColorOutput !default;
+$grey-tint-chroma: config.$grey-tint-chroma;
+$grey-tint-color: config.$grey-tint-color;
 
 $_colors: meta.module-variables("colors");
 $color-map-keys: map.keys($_colors);
@@ -39,13 +32,13 @@ $color-loop-output-flat: ();
 // @debug 'Colors:' $_colors;
 
 // Removes the leaky variables which are @forwarded and get outputted
-@for $i from 1 through $exclude-count {
-  $key-to-remove: list.nth($color-map-keys, if($i == 1, $i, $i - 1));
+@each $key-to-remove in $color-map-keys {
   $key-to-remove-starts-with: list.nth(str-explode($key-to-remove, '-'), 1);
-    $inColorIncludes: list.index($colorIncludes, $key-to-remove-starts-with);  
+    $inColorIncludes: list.index($colorIncludes, $key-to-remove-starts-with);
+
     @if not ($inColorIncludes) {
-        $_colors: map.remove($_colors, $key-to-remove);
-    } 
+            $_colors: map.remove($_colors, $key-to-remove);
+    }
 }
 
 // @debug 'Colors after:' $_colors;

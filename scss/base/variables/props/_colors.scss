@@ -1,14 +1,8 @@
 // replace with oklch when lightningcss is in place
-@use "sass:meta";
 @use "../../../theme/_index" as *;
-@use "../../../theme/overrides-proxy" as overrides;
-@use "../../functions/overrides" as *;
 @use "../../variables/config" as config;
 
 $_colorNamePrefix: getColorPrefix();
-
-/// Get overrides for checking color component values
-$_overrides: meta.module-variables("overrides");
 
 //// For colors I'm using register-colors as a reference for the default colors values. This allows color overridees to use custom properties values other than numbers
 $register-lch: (
@@ -117,42 +111,41 @@ $register-colors: (
     )    
 );
 
-// Use override system for color component variables with fallbacks
-$fg-threshold: get-override("fg-threshold", 0.7, $_overrides);
-$fg-lightest-text: get-override("fg-lightest-text", 0, $_overrides);
-$fg-darkest-text: get-override("fg-darkest-text", 1, $_overrides);
-$fg-muted-lightest-text: get-override("fg-muted-lightest-text", 0.4, $_overrides);
-$fg-muted-darkest-text: get-override("fg-muted-darkest-text", 0.90, $_overrides);
+$fg-threshold: config.$fg-threshold;
+$fg-lightest-text: config.$fg-lightest-text;
+$fg-darkest-text: config.$fg-darkest-text;
+$fg-muted-lightest-text: config.$fg-muted-lightest-text;
+$fg-muted-darkest-text: config.$fg-muted-darkest-text;
 
-$primary-l: get-override("primary-l", map-deep-get($register-lch, "primary-l", "initial-value"), $_overrides);
-$primary-c: get-override("primary-c", map-deep-get($register-lch, "primary-c", "initial-value"), $_overrides);
-$primary-h: get-override("primary-h", map-deep-get($register-lch, "primary-h", "initial-value"), $_overrides);
+$primary-l: config.$primary-l;
+$primary-c: config.$primary-c;
+$primary-h: config.$primary-h;
 
 $primary: oklch(var(--#{$_colorNamePrefix}primary-l, #{$primary-l}) var(--#{$_colorNamePrefix}primary-c, #{$primary-c}) var(--#{$_colorNamePrefix}primary-h, #{$primary-h}));
 
 // $secondary-l: var(--#{$_colorNamePrefix}primary-l-1);
-$secondary-l: get-override("secondary-l", map-deep-get($register-lch, "secondary-l", "initial-value"), $_overrides);
-$secondary-c: get-override("secondary-c", map-deep-get($register-lch, "secondary-c", "initial-value"), $_overrides);
-$secondary-h: get-override("secondary-h", map-deep-get($register-lch, "secondary-h", "initial-value"), $_overrides);
+$secondary-l: config.$secondary-l;
+$secondary-c: config.$secondary-c;
+$secondary-h: config.$secondary-h;
 
 $secondary: oklch(var(--#{$_colorNamePrefix}secondary-l, #{$secondary-l}) var(--#{$_colorNamePrefix}secondary-c, #{$secondary-c}) var(--#{$_colorNamePrefix}secondary-h, #{$secondary-h}));
 
 // $tertiary-l: calc(var(--#{$_colorNamePrefix}primary-l-11) + 0.18);
-$tertiary-l: get-override("tertiary-l", map-deep-get($register-lch, "tertiary-l", "initial-value"), $_overrides);
-$tertiary-c: get-override("tertiary-c", map-deep-get($register-lch, "tertiary-c", "initial-value"), $_overrides);
-$tertiary-h: get-override("tertiary-h", map-deep-get($register-lch, "tertiary-h", "initial-value"), $_overrides);
+$tertiary-l: config.$tertiary-l;
+$tertiary-c: config.$tertiary-c;
+$tertiary-h: config.$tertiary-h;
 
 $tertiary: oklch(var(--#{$_colorNamePrefix}tertiary-l, #{$tertiary-l}) var(--#{$_colorNamePrefix}tertiary-c, #{$tertiary-c}) var(--#{$_colorNamePrefix}tertiary-h, #{$tertiary-h}));
 
-$dark-l: get-override("dark-l", map-deep-get($register-lch, "dark-l", "initial-value"), $_overrides);
-$dark-c: get-override("dark-c", map-deep-get($register-lch, "dark-c", "initial-value"), $_overrides);
-$dark-h: get-override("dark-h", map-deep-get($register-lch, "dark-h", "initial-value"), $_overrides);
+$dark-l: config.$dark-l;
+$dark-c: config.$dark-c;
+$dark-h: config.$dark-h;
 
 $dark: oklch(var(--#{$_colorNamePrefix}dark-l, #{$dark-l}) var(--#{$_colorNamePrefix}dark-c, #{$dark-c}) var(--#{$_colorNamePrefix}dark-h, #{$dark-h}));
 
-$light-l: get-override("light-l", map-deep-get($register-lch, "light-l", "initial-value"), $_overrides);
-$light-c: get-override("light-c", map-deep-get($register-lch, "light-c", "initial-value"), $_overrides);
-$light-h: get-override("light-h", map-deep-get($register-lch, "light-h", "initial-value"), $_overrides);
+$light-l: config.$light-l;
+$light-c: config.$light-c;
+$light-h: config.$light-h;
 
 $light: oklch(var(--#{$_colorNamePrefix}light-l, #{$light-l}) var(--#{$_colorNamePrefix}light-c, #{$light-c}) var(--#{$_colorNamePrefix}light-h, #{$light-h}));
 

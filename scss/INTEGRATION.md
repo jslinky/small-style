@@ -2,45 +2,28 @@
 
 ## For Package Users
 
-When you install this package via npm, follow these steps:
+When you install this package via npm, configure it through the package entrypoint.
 
 ### 1. Install the package
 ```bash
-npm install @your-org/base-scss
+npm install small-style
 ```
 
-### 2. Create your theme structure
+### 2. Create your stylesheet
 ```
 your-project/
-├── scss/
-│   ├── theme/
-│   │   ├── _index.scss
-│   │   └── _overrides.scss
-│   └── style.scss
+├── styles/
+│   └── main.scss
 ```
 
-### 3. Set up your theme/_index.scss
+### 3. Configure the package in your stylesheet
 ```scss
-@forward "@your-org/base-scss/variables";
-@forward "@your-org/base-scss/mixins";
-@forward "@your-org/base-scss/functions";
-@import './overrides';
-```
-
-### 4. Create your theme/_overrides.scss
-Copy the template from the package and customize as needed:
-```scss
-// Your custom variable overrides
-$secondary-l: 0.41;
-$font-family-base: 'Your Font';
-$font-size-base-px: 18;
-$max-wrapper-width: 1200px;
-// Add more overrides as needed
-```
-
-### 5. Import in your main SCSS file
-```scss
-@import "./base/base";  // This will use your theme via relative import
+@use "small-style/scss/index" with (
+  $secondary-l: 0.41,
+  $font-family-base: 'Your Font',
+  $font-size-base-px: 18,
+  $root-max-wrapper-width: 1200,
+);
 
 // Your site-specific styles below
 @layer site {
@@ -50,11 +33,7 @@ $max-wrapper-width: 1200px;
 
 ## For Package Development
 
-The current structure during development uses relative imports. Before publishing:
-
-1. Update theme/_index.scss to remove relative imports
-2. Document the expected user structure
-3. Test with actual npm link/publish workflow
+The package now expects configuration through `@use ... with (...)` against `scss/index`.
 
 ## Build Pipeline Integration
 

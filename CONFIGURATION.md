@@ -1,32 +1,30 @@
-# Gardners Styles Configuration
+# Small Style Configuration
 
-This document explains how to customize the installation and setup of Gardners Styles.
+This document explains how to customize the install setup and Sass configuration surface for `small-style`.
 
 ## Styles Directory Configuration
 
 By default, Gardners Styles creates a `styles/` directory in your project root. You can customize this location using several methods.
 
-### Method 1: Package.json Configuration (Recommended)
+### Method 1: Package.json Configuration
 
-Add a `gardnersStyles` configuration object to your `package.json`:
+Add a `smallStyles` configuration object to your `package.json`:
 
 ```json
 {
   "name": "your-project",
-  "gardnersStyles": {
+  "smallStyles": {
     "stylesDir": "src/scss",
-    "overridesFile": "_variables.scss",
     "entryFile": "index.scss"
   },
   "dependencies": {
-    "@gardners/styles": "^1.0.0"
+    "small-style": "^1.0.0"
   }
 }
 ```
 
 **Options:**
 - `stylesDir` - Directory where styles files will be created (default: `styles`)
-- `overridesFile` - Name of the overrides file (default: `_overrides.scss`)
 - `entryFile` - Name of the main entry file (default: `main.scss`)
 
 ### Method 2: Environment Variables
@@ -35,13 +33,12 @@ Set environment variables before installation:
 
 ```bash
 # Basic directory change
-GARDNERS_STYLES_DIR=src/scss npm install @gardners/styles
+SMALL_STYLES_DIR=src/scss npm install small-style
 
-# Full customization
-GARDNERS_STYLES_DIR=assets/styles \
-GARDNERS_OVERRIDES_FILE=_config.scss \
-GARDNERS_ENTRY_FILE=framework.scss \
-npm install @gardners/styles
+# Custom entry file name
+SMALL_STYLES_DIR=assets/styles \
+SMALL_ENTRY_FILE=framework.scss \
+npm install small-style
 ```
 
 ### Method 3: Auto-Detection
@@ -63,7 +60,6 @@ If any of these directories exist, the setup will use them automatically.
 ```
 your-project/
 ├── styles/
-│   ├── _overrides.scss
 │   └── main.scss
 └── package.json
 ```
@@ -71,7 +67,7 @@ your-project/
 ### Custom Structure (src/scss)
 ```json
 {
-  "gardnersStyles": {
+  "smallStyles": {
     "stylesDir": "src/scss"
   }
 }
@@ -80,7 +76,6 @@ Results in:
 ```
 your-project/
 ├── src/scss/
-│   ├── _overrides.scss
 │   └── main.scss
 └── package.json
 ```
@@ -88,9 +83,9 @@ your-project/
 ### Nuxt/Vue Project Structure
 ```json
 {
-  "gardnersStyles": {
+  "smallStyles": {
     "stylesDir": "assets/scss",
-    "overridesFile": "_variables.scss"
+    "entryFile": "main.scss"
   }
 }
 ```
@@ -98,7 +93,6 @@ Results in:
 ```
 your-project/
 ├── assets/scss/
-│   ├── _variables.scss
 │   └── main.scss
 └── package.json
 ```
@@ -106,7 +100,7 @@ your-project/
 ### Complex Project Structure (like gardners25)
 ```json
 {
-  "gardnersStyles": {
+  "smallStyles": {
     "stylesDir": "layers/base/assets/scss"
   }
 }
@@ -115,7 +109,6 @@ Results in:
 ```
 your-project/
 ├── layers/base/assets/scss/
-│   ├── _overrides.scss
 │   └── main.scss
 └── package.json
 ```
@@ -130,7 +123,7 @@ If you need to change your configuration after installation:
    node node_modules/@gardners/styles/scripts/setup.js
    ```
 
-The setup script will respect your new configuration and update the overrides proxy accordingly.
+The setup script will respect your new configuration and regenerate the sample entry file when it is missing.
 
 ## Import Usage
 
@@ -138,14 +131,15 @@ After setup, import the framework in your project:
 
 ```scss
 // Option 1: Use the generated entry file
-@import './assets/scss/main.scss';
+@use './assets/scss/main';
 
 // Option 2: Import the framework directly
-@import '@gardners/styles';
-
-// Option 3: Import specific parts
-@use '@gardners/styles/scss/theme' as *;
-@use '@gardners/styles/scss/base/base';
+@use 'small-style/scss/index' with (
+  $font-family-base: 'Inter, sans-serif',
+  $primary-l: 0.6,
+  $primary-c: 0.15,
+  $primary-h: 240,
+);
 ```
 
 ## Troubleshooting
@@ -154,9 +148,8 @@ After setup, import the framework in your project:
 - Ensure the postinstall script is enabled in npm/pnpm
 - Run manually: `node node_modules/@gardners/styles/scripts/setup.js`
 
-**Overrides not being applied:**
-- Check that the overrides file exists in the configured location
-- Verify the proxy file was updated correctly
+**Config values not being applied:**
+- Check that the `@use 'small-style/scss/index' with (...)` block appears before any other `small-style` imports in that file
 - Check for SCSS compilation errors in your build process
 
 **Custom directory not detected:**

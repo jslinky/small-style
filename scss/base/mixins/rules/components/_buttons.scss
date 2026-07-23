@@ -1,4 +1,5 @@
 @use "sass:meta";
+@use "sass:map";
 @use "../../../../theme" as *;
 // @use "../../variables" as *;
 @use "../../../variables/props/key-tokens" as key-tokens;
@@ -9,6 +10,21 @@ $_key-tokens: meta.module-variables("key-tokens");
 $button-frame-x: pick-keys($_key-tokens, text-frame-x);
 $_colors: meta.module-variables("colors");
 $_colorNamePrefix: getColorPrefix();
+
+@function _resolve-button-colors-map($source-colors: $_colors, $includes: $colorIncludes) {
+  $resolved: $source-colors;
+
+  // Allow config-provided includes even when they're not authored as Sass vars in colors.
+  @each $color in $includes {
+    @if not map.has-key($resolved, $color) {
+      $resolved: map.set($resolved, $color, null);
+    }
+  }
+
+  @return $resolved;
+}
+
+$_button-colors: _resolve-button-colors-map();
 
 $button-padding-frame-ratios: (
   xs: $button-xs-padding-frame-ratio,
@@ -46,14 +62,21 @@ $button-font-size: (
   --button-color-contrast: var(--#{$_colorNamePrefix}#{$color}-contrast);  
 }
 
-@mixin gen-button-color-variations() {
-  @each $color in $colorIncludes {
-    @if (map-has-key($_colors, $color)) {
-      &.button--#{$color} {
-        @include gen-button-color($color);
-        --button-fg: var(--button-fg-#{$color}, var(--button-color-contrast));
-        --button-bg: var(--button-bg-#{$color}, var(--button-color));
-      }
+@mixin emit-button-color-variation($color) {
+  &.button--#{$color} {
+    @include gen-button-color($color);
+    --button-fg: var(--button-fg-#{$color}, var(--button-color-contrast));
+    --button-bg: var(--button-bg-#{$color}, var(--button-color));
+  }
+}
+
+@mixin gen-button-color-variations($map: $colorIncludes) {
+  @debug "Generating button color variations for colors: #{$map}";
+  @each $color in $map {
+    @if map.has-key($_button-colors, $color) {
+      @include emit-button-color-variation($color);
+    } @else {
+      @warn "Color `#{$color}` is not available in colors or config.$colorIncludes.";
     }
   }
 }
@@ -76,7 +99,7 @@ $button-font-size: (
 
 @mixin base-state-color-variations($states...) {  
   @each $color in $colorIncludes {
-    @if (map-has-key($_colors, $color)) {
+    @if map.has-key($_button-colors, $color) {
       @each $key, $state in meta.keywords($states) {
         @if $state == hover or $state == focus {
           &.button--#{$color}:#{$state} {            
@@ -128,7 +151,7 @@ $button-font-size: (
 
 @mixin inverted-state-color-variations($states...) {  
   @each $color in $colorIncludes {
-    @if (map-has-key($_colors, $color)) {
+    @if map.has-key($_button-colors, $color) {
       @each $key, $state in meta.keywords($states) {
         @if $state == hover or $state == focus {
           &.button--#{$color}:#{$state} {
@@ -150,7 +173,7 @@ $button-font-size: (
 
 @mixin soft-state-color-variations($states...) {  
   @each $color in $colorIncludes {
-    @if (map-has-key($_colors, $color)) {
+    @if map.has-key($_button-colors, $color) {
       @each $key, $state in meta.keywords($states) {
         @if $state == hover or $state == focus {
           &.button--#{$color}:#{$state} {
@@ -172,7 +195,7 @@ $button-font-size: (
 
 @mixin outline-state-color-variations($states...) {  
   @each $color in $colorIncludes {
-    @if (map-has-key($_colors, $color)) {
+    @if map.has-key($_button-colors, $color) {
       @each $key, $state in meta.keywords($states) {
         @if $state == hover or $state == focus {
           &.button--#{$color}:#{$state} {
@@ -193,7 +216,7 @@ $button-font-size: (
 
 @mixin ghost-state-color-variations($states...) {  
   @each $color in $colorIncludes {
-    @if (map-has-key($_colors, $color)) {
+    @if map.has-key($_button-colors, $color) {
       @each $key, $state in meta.keywords($states) {
         @if $state == hover or $state == focus {
           &.button--#{$color}:#{$state} {

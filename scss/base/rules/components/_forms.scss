@@ -1,14 +1,9 @@
-@use "sass:meta";
 @use "../../variables/components/forms" as *;
 @use "../../variables/config" as config;
-@use "../../../theme/overrides-proxy" as overrides;
 @use "../../mixins/rules/components/forms" as forms;
 @use "../../mixins/output-rules-with-scope" as *;
-@use "../../functions/overrides" as *;
 
-// Get overrides and apply the override system for include-forms
-$_overrides: meta.module-variables("overrides");
-$include-forms: get-override("include-forms", config.$include-forms, $_overrides);
+$include-forms: config.$include-forms;
 
 // @mixin form-layout-rules() {
 //   #{$form-layout-selector} {

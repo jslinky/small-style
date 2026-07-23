@@ -9,54 +9,47 @@ npm install small-style
 ```
 
 The post-install script will automatically create:
-- `styles/_overrides.scss` - Your customization variables  
 - `styles/main.scss` - Your main stylesheet entry point
 
 ## Quick Start
 
-After installation, you can either:
-
-### Option 1: Use the generated files
-Import the generated main file in your project:
+After installation, import the generated main file in your project:
 
 ```scss
-// In your main SCSS file
-@import './styles/main.scss';
+@use './styles/main';
 ```
 
-### Option 2: Import directly
-Import the framework directly and customize:
+You can also import the framework directly and configure it inline:
 
 ```scss
-// Make sure you have styles/_overrides.scss with your customizations
-@import 'small-style/scss/index';
+@use 'small-style/scss/index' with (
+  $font-family-base: 'Inter, sans-serif',
+  $root-max-wrapper-width: 1400,
+  $primary-l: 0.6,
+  $primary-c: 0.15,
+  $primary-h: 240,
+  $include-forms: false,
+);
 ```
 
 ## Customization
 
-Edit `styles/_overrides.scss` (or your configured overrides file) to customize the framework:
+Edit `styles/main.scss` and set config values in the `@use 'small-style/scss/index' with (...)` block:
 
 ```scss
-// Font customization
-$font-family-base: 'Inter', sans-serif;
-$font-family-heading: 'Inter', sans-serif;
-$font-heading-weight: 700;
-
-// Layout customization  
-$root-max-wrapper-width: 1400px;
-$layout-gap: max(min(2vmax, var(--space-xl)), var(--space-lg, 1rem));
-
-// Color customization (OKLCH format)
-$primary-l: 0.6;    // Lightness (0-1)
-$primary-c: 0.15;   // Chroma (0-0.37+) 
-$primary-h: 240;    // Hue (0-360)
-
-// Generate stepped color variants
-$generateSteppedColors: 'primary';
-
-// Component customization
-$button-selectors: '.button';
-$radius: 0.5rem;
+@use 'small-style/scss/index' with (
+  $font-family-base: 'Inter, sans-serif',
+  $font-family-heading: 'Inter, sans-serif',
+  $font-heading-weight: 700,
+  $root-max-wrapper-width: 1400,
+  $layout-gap: max(min(2vmax, var(--space-xl)), var(--space-lg, 1rem)),
+  $primary-l: 0.6,
+  $primary-c: 0.15,
+  $primary-h: 240,
+  $generateSteppedColors: 'primary',
+  $button-selectors: '.button',
+  $radius: 0.5rem,
+);
 ```
 
 ### Custom Styles Directory
@@ -66,9 +59,9 @@ You can customize where the styles files are created:
 **Package.json Configuration:**
 ```json
 {
-  "gardnersStyles": {
+  "smallStyles": {
     "stylesDir": "src/scss",
-    "overridesFile": "_variables.scss"
+    "entryFile": "framework.scss"
   }
 }
 ```
@@ -89,11 +82,9 @@ After installation, your project will have:
 ```
 your-project/
 ├── styles/
-│   ├── _overrides.scss  # Your customizations
-│   └── main.scss        # Your entry point
+│   └── main.scss        # Your entry point and config
 ├── node_modules/
-│   └── @gardners/
-│       └── styles/      # Framework files
+│   └── small-style/     # Framework files
 └── ...
 ```
 
@@ -103,7 +94,11 @@ The framework provides only the base styles. Site-specific styles should be adde
 
 ```scss
 // In your styles/main.scss or similar
-@import 'small-style/scss/index';
+@use 'small-style/scss/index' with (
+  $primary-l: 0.6,
+  $primary-c: 0.15,
+  $primary-h: 240,
+);
 
 @layer site {
   .your-site-components {
@@ -143,6 +138,7 @@ The framework provides only the base styles. Site-specific styles should be adde
 ### Components
 - `$button-selectors` - CSS selectors for button styling
 - `$radius` - Default border radius
+- `$include-forms` - Toggle form rules on or off
 
 ## Framework Features
 

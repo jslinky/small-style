@@ -1,28 +1,14 @@
-// Import theme overrides first
-@import "../../../theme/overrides-proxy";
+@use "../../variables/config" as config;
 
-$use-typo-scale: true !default;
-$text-size-increment: 1.25 !default;
-$font-size-base-px: 16 !default;
+$use-typo-scale: config.$use-typo-scale !default;
+$text-size-increment: config.$text-size-increment !default;
+$font-size-base-px: config.$font-size-base-px !default;
 $font-size-base: calc((var(--font-size-base-px, #{$font-size-base-px}) / 16) * 1rem);
 
-$base-font-size-marker: 'md' !default;
+$base-font-size-marker: config.$base-font-size-marker !default;
 
 /// Values are for if $use-type-scale is false
-$font-size-list: (
-    xxs: 10,
-    xs: 12,
-    sm: 14,
-    md: 16,
-    lg: 18,
-    xl: 20,
-    display-xs: 24,
-    display-sm: 30,
-    display-md: 36,
-    display-lg: 48,
-    display-xl: 60,
-    display-2xl: 72
-)!default;
+$font-size-list: config.$font-size-list !default;
 
 $register-font-size: (
     'text-size-increment': (

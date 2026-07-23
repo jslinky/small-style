@@ -42,7 +42,7 @@
     --text-transform: var(--#{$heading-name}-text-transform, #{$text-transform});
     --letter-spacing: var(--#{$heading-name}-letter-spacing, #{$letter-spacing});
     --line-height: var(--#{$heading-name}-line-height, #{$line-height});
-    --color: var(--#{$heading-name}-color, #{$color});
+    --color-heading: var(--#{$heading-name}-color, #{$color});
     --font-family: var(--#{$heading-name}-font-family, #{$font-family});
 }
 

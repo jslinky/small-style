@@ -1,13 +1,7 @@
-// @use "variables" as *;
-@use "sass:meta";
 @use "../theme" as *;
 @use "./variables/config" as config;
-@use "../theme/overrides-proxy" as overrides;
-@use "./functions/overrides" as *;
 
-// Get the override value for baseResetRulesScopeClassName
-$_overrides: meta.module-variables("overrides");
-$baseResetRulesScopeClassName: get-override("baseResetRulesScopeClassName", config.$baseResetRulesScopeClassName, $_overrides);
+$baseResetRulesScopeClassName: config.$baseResetRulesScopeClassName;
 
 // @debug 'base.scss $baseResetRulesScopeClassName: #{$baseResetRulesScopeClassName}';
 

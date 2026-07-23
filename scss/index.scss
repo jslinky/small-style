@@ -1,8 +1,8 @@
 // Gardners Styles Framework - Main Entry Point
 // This is the main entry point when using the framework as an NPM package
 
-// Import the framework core (theme handles overrides via proxy system)
-@use "./theme" as *;
+// Forward the configurable theme surface so consumers can use @use ... with (...)
+@forward "./theme";
 @use "./base/base";
 
 // Site-specific styles should be added in your project's styles directory

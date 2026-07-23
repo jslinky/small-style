@@ -72,7 +72,7 @@
       @content;
     }
   } @else {
-    @container (width > #{bp.$container-#{$query}}) {
+    @container (width >= #{bp.$container-#{$query}}) {
       @content;
     }      
   }     

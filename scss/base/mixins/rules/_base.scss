@@ -9,6 +9,7 @@
   font-size: var(--font-size-base);
   color: var(--root-fg, var(--color-dark, #1d1d1d));
   background-color: var(--root-bg, var(--color-light, #fff));    
+  line-height: var(--line-height-base, calc(var(--line-height-relative, 1.4em) + var(--line-height-fixed, 0.375rem)));
 }
 
 @mixin paragraph-styles() {
