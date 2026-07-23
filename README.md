@@ -116,6 +116,37 @@ The framework provides only the base styles. Site-specific styles should be adde
 }
 ```
 
+## CSS Module Mode
+
+If you do not need SCSS configuration, you can import prebuilt CSS modules from `dist/`.
+
+```css
+@import "small-style/dist/modules/reset.css";
+@import "small-style/dist/modules/base.css";
+@import "small-style/dist/modules/props/registration.css";
+@import "small-style/dist/modules/props/layout.css";
+@import "small-style/dist/modules/props/spacing.css";
+@import "small-style/dist/modules/components/buttons.css";
+```
+
+### Per-category registration imports
+
+You can import registration props as a single file or by category:
+
+```css
+/* All registrations */
+@import "small-style/dist/modules/props/registration.css";
+
+/* Or per category */
+@import "small-style/dist/modules/props/registration/key-tokens.css";
+@import "small-style/dist/modules/props/registration/font-size.css";
+@import "small-style/dist/modules/props/registration/font.css";
+@import "small-style/dist/modules/props/registration/spacing.css";
+@import "small-style/dist/modules/props/registration/wrapper.css";
+@import "small-style/dist/modules/props/registration/layout.css";
+@import "small-style/dist/modules/props/registration/colors.css";
+```
+
 ## Available Variables
 
 ### Colors

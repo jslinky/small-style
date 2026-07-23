@@ -20,6 +20,7 @@ $color-map-keys: map.keys($_colors);
 
 $color-loop-output: ();
 $color-loop-output-flat: ();
+$colorNamePrefix: colorPrefix.getColorPrefix();
 
 @function checkIfColorDefined($colorName, $map: $_colors) {
     @return map.has-key($map, $colorName);
@@ -191,8 +192,8 @@ $color-loop-output-flat: ();
             @if(is-number($lightness) and is-number($chroma) and is-number($hue)) {
                 @for $i from 1 through length($lightness-steps) {
                     @include register-prop("#{$colorNamePrefix}#{$color}-#{$i}", "<color>", true, oklch(nth($lightness-steps, $i) $chroma $hue));
-                    @include register-prop("#{$colorNamePrefix}#{$color}-#{$i}-contrast", "*", true, unquote('oklch(from oklch(#{$lightness} #{$chroma} #{$hue}) clamp(#{colors.$fg-lightest-text}, (l / #{colors.$fg-threshold} - 1) * -infinity, #{colors.$fg-darkest-text}) 0 h)'));
-                    @include register-prop("#{$colorNamePrefix}#{$color}-#{$i}-contrast-muted", "*", true, unquote('oklch(from oklch(#{$lightness} #{$chroma} #{$hue}) clamp(#{colors.$fg-muted-lightest-text}, (l / #{colors.$fg-threshold} - 1) * -infinity, #{colors.$fg-muted-darkest-text}) 0 h)'));
+                    @include register-prop("#{$colorNamePrefix}#{$color}-#{$i}-contrast", "*", true, unquote('oklch(from oklch(#{$lightness} #{$chroma} #{$hue}) clamp(#{config.$fg-lightest-text}, (l / #{config.$fg-threshold} - 1) * -infinity, #{config.$fg-darkest-text}) 0 h)'));
+                    @include register-prop("#{$colorNamePrefix}#{$color}-#{$i}-contrast-muted", "*", true, unquote('oklch(from oklch(#{$lightness} #{$chroma} #{$hue}) clamp(#{config.$fg-muted-lightest-text}, (l / #{config.$fg-threshold} - 1) * -infinity, #{config.$fg-muted-darkest-text}) 0 h)'));
                 }
             }
         }
@@ -206,8 +207,8 @@ $color-loop-output-flat: ();
                 @for $i from 1 through length($lightness-steps) {
                     $lightness-step: nth($lightness-steps, $i);
                     @include register-prop("#{$colorNamePrefix}#{$color}-#{$i}", "*", true, unquote('oklch(from oklch(#{$lightness} #{$chroma} #{$hue}) #{$lightness-step} #{$grey-tint-chroma} h)'));
-                    @include register-prop("#{$colorNamePrefix}#{$color}-#{$i}-contrast", "*", true, unquote('oklch(from oklch(#{$lightness-step} #{$grey-tint-chroma} #{$hue}) clamp(#{colors.$fg-lightest-text}, (l / #{colors.$fg-threshold} - 1) * -infinity, #{colors.$fg-darkest-text}) 0 h)'));
-                    @include register-prop("#{$colorNamePrefix}#{$color}-#{$i}-contrast-muted", "*", true, unquote('oklch(from oklch(#{$lightness-step} #{$grey-tint-chroma} #{$hue}) clamp(#{colors.$fg-muted-lightest-text}, (l / #{colors.$fg-threshold} - 1) * -infinity, #{colors.$fg-muted-darkest-text}) 0 h)'));
+                    @include register-prop("#{$colorNamePrefix}#{$color}-#{$i}-contrast", "*", true, unquote('oklch(from oklch(#{$lightness-step} #{$grey-tint-chroma} #{$hue}) clamp(#{config.$fg-lightest-text}, (l / #{config.$fg-threshold} - 1) * -infinity, #{config.$fg-darkest-text}) 0 h)'));
+                    @include register-prop("#{$colorNamePrefix}#{$color}-#{$i}-contrast-muted", "*", true, unquote('oklch(from oklch(#{$lightness-step} #{$grey-tint-chroma} #{$hue}) clamp(#{config.$fg-muted-lightest-text}, (l / #{config.$fg-threshold} - 1) * -infinity, #{config.$fg-muted-darkest-text}) 0 h)'));
                 }
             }
         }
@@ -227,8 +228,8 @@ $color-loop-output-flat: ();
                 'initial-value': if(is-number($lightness) and is-number($chroma) and is-number($hue), oklch($lightness $chroma $hue), map-deep-get(colors.$register-lch, '#{$color}', 'initial-value'))
             );           
             @include register-prop("#{$colorNamePrefix}#{$color}", map.get($value, 'syntax'), map.get($value, 'inherits'), map.get($value, 'initial-value'));
-            @include register-prop("#{$colorNamePrefix}#{$color}-contrast", "*", true, unquote('oklch(from #{map.get($value, "initial-value")} clamp(#{colors.$fg-lightest-text}, (l / #{colors.$fg-threshold} - 1) * -infinity, #{colors.$fg-darkest-text}) 0 h)'));
-            @include register-prop("#{$colorNamePrefix}#{$color}-contrast-muted", "*", true, unquote('oklch(from #{map.get($value, "initial-value")} clamp(#{colors.$fg-muted-lightest-text}, (l / #{colors.$fg-threshold} - 1) * -infinity, #{colors.$fg-muted-darkest-text}) 0 h)'));
+            @include register-prop("#{$colorNamePrefix}#{$color}-contrast", "*", true, unquote('oklch(from #{map.get($value, "initial-value")} clamp(#{config.$fg-lightest-text}, (l / #{config.$fg-threshold} - 1) * -infinity, #{config.$fg-darkest-text}) 0 h)'));
+            @include register-prop("#{$colorNamePrefix}#{$color}-contrast-muted", "*", true, unquote('oklch(from #{map.get($value, "initial-value")} clamp(#{config.$fg-muted-lightest-text}, (l / #{config.$fg-threshold} - 1) * -infinity, #{config.$fg-muted-darkest-text}) 0 h)'));
         }
     }
 }

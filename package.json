@@ -1,10 +1,35 @@
 {
   "name": "small-style",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Small styling framework - customizable SCSS framework",
+  "license": "MIT",
+  "keywords": [
+    "scss",
+    "sass",
+    "css",
+    "design-system",
+    "tokens",
+    "utilities"
+  ],
+  "homepage": "https://github.com/jslinky/gardners-styles#readme",
+  "bugs": {
+    "url": "https://github.com/jslinky/gardners-styles/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jslinky/gardners-styles.git"
+  },
   "main": "dist/style.css",
   "sass": "scss/index.scss",
   "style": "dist/style.css",
+  "exports": {
+    ".": "./dist/style.css",
+    "./dist/*": "./dist/*",
+    "./scss/*": "./scss/*",
+    "./scripts/*": "./scripts/*",
+    "./templates/*": "./templates/*",
+    "./package.json": "./package.json"
+  },
   "files": [
     "dist/",
     "scss/",
@@ -39,9 +64,18 @@
     "build:theme-layout-props": "sass scss/base/output-modules/props/theme/_layout.scss:dist/modules/props/theme/layout.css --load-path=node_modules",
     "build:theme-spacing-props": "sass scss/base/output-modules/props/theme/_spacing.scss:dist/modules/props/theme/spacing.css --load-path=node_modules",
     "build:register-props": "sass scss/base/rules/props/_registration.scss:dist/modules/props/registration.css --load-path=node_modules",
-    "build:all-props": "pnpm run build:color-props && pnpm run build:font-size-props && pnpm run build:font-props && pnpm run build:forms-props && pnpm run build:layout-props && pnpm run build:spacing-props && pnpm run build:theme-color-props && pnpm run build:theme-font-size-props && pnpm run build:theme-font-props && pnpm run build:theme-forms-props && pnpm run build:theme-layout-props && pnpm run build:theme-spacing-props",
-    "build:components": "pnpm run build:reset && pnpm run build:base && pnpm run build:fluid-type && pnpm run build:headings && pnpm run build:buttons && pnpm run build:card && pnpm run build:collapse && pnpm run build:flow && pnpm run build:forms && pnpm run build:surface && pnpm run build:timeline && pnpm run build:layout",
-    "build:all": "pnpm run build:all-props && pnpm run build:components",
+    "build:register-key-tokens-props": "mkdir -p dist/modules/props/registration && sass scss/base/rules/props/registration/_key-tokens.scss:dist/modules/props/registration/key-tokens.css --load-path=node_modules",
+    "build:register-font-size-props": "mkdir -p dist/modules/props/registration && sass scss/base/rules/props/registration/_font-size.scss:dist/modules/props/registration/font-size.css --load-path=node_modules",
+    "build:register-font-props": "mkdir -p dist/modules/props/registration && sass scss/base/rules/props/registration/_font.scss:dist/modules/props/registration/font.css --load-path=node_modules",
+    "build:register-spacing-props": "mkdir -p dist/modules/props/registration && sass scss/base/rules/props/registration/_spacing.scss:dist/modules/props/registration/spacing.css --load-path=node_modules",
+    "build:register-wrapper-props": "mkdir -p dist/modules/props/registration && sass scss/base/rules/props/registration/_wrapper.scss:dist/modules/props/registration/wrapper.css --load-path=node_modules",
+    "build:register-layout-props": "mkdir -p dist/modules/props/registration && sass scss/base/rules/props/registration/_layout.scss:dist/modules/props/registration/layout.css --load-path=node_modules",
+    "build:register-color-props": "mkdir -p dist/modules/props/registration && sass scss/base/rules/props/registration/_colors.scss:dist/modules/props/registration/colors.css --load-path=node_modules",
+    "build:register-props-modules": "npm run build:register-key-tokens-props && npm run build:register-font-size-props && npm run build:register-font-props && npm run build:register-spacing-props && npm run build:register-wrapper-props && npm run build:register-layout-props && npm run build:register-color-props",
+    "build:all-props": "npm run build:color-props && npm run build:font-size-props && npm run build:font-props && npm run build:forms-props && npm run build:layout-props && npm run build:spacing-props && npm run build:theme-color-props && npm run build:theme-font-size-props && npm run build:theme-font-props && npm run build:theme-forms-props && npm run build:theme-layout-props && npm run build:theme-spacing-props",
+    "build:components": "npm run build:reset && npm run build:base && npm run build:fluid-type && npm run build:headings && npm run build:buttons && npm run build:card && npm run build:collapse && npm run build:flow && npm run build:forms && npm run build:surface && npm run build:timeline && npm run build:layout",
+    "build:all": "npm run build && npm run build:all-props && npm run build:register-props && npm run build:register-props-modules && npm run build:components",
+    "prepack": "npm run build:all",
     "watch": "sass scss/style.scss:dist/style.css --watch --load-path=node_modules"
   },
   "devDependencies": {
