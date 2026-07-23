@@ -14,6 +14,19 @@ This playbook is for releasing `small-style` without publishing to npm.
 2. Build pipeline passes locally.
 3. Consumer projects reference `small-style` via `file:` tarball paths.
 
+## Release Checklist
+
+1. Bump version in `package.json`.
+2. Run `npm run build:all`.
+3. Run `npm pack`.
+4. Copy the tarball to `_artifacts/small-style/`.
+5. Commit release-related source changes.
+6. Tag the release, for example `v1.1.0`.
+7. Push commit and tag.
+8. Update only the consumer projects that should move to the new version.
+9. Run `npm install` in each updated consumer.
+10. Rebuild each updated consumer and verify output.
+
 ## Release Steps
 
 ### 1. Build and package
@@ -32,7 +45,13 @@ Example:
 
 - `small-style-1.1.0.tgz`
 
-### 2. Commit and tag
+### 2. Copy the tarball to the shared artifact path
+
+```bash
+cp small-style-1.1.0.tgz ../_artifacts/small-style/
+```
+
+### 3. Commit and tag
 
 ```bash
 git add .
@@ -51,7 +70,7 @@ In each consumer, point `small-style` to the tarball you want:
 ```json
 {
   "dependencies": {
-    "small-style": "file:../small-style/small-style-1.1.0.tgz"
+    "small-style": "file:../_artifacts/small-style/small-style-1.1.0.tgz"
   }
 }
 ```
@@ -77,8 +96,8 @@ Different projects may pin different `small-style` versions at the same time.
 
 Example:
 
-- Project A uses `small-style-1.0.0.tgz`
-- Project B uses `small-style-1.1.0.tgz`
+- Project A uses `file:../_artifacts/small-style/small-style-1.0.0.tgz`
+- Project B uses `file:../_artifacts/small-style/small-style-1.1.0.tgz`
 
 This allows staged adoption.
 

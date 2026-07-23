@@ -32,7 +32,7 @@ Example dependency value:
 ```json
 {
   "dependencies": {
-    "small-style": "file:../small-style/small-style-1.1.0.tgz"
+    "small-style": "file:../_artifacts/small-style/small-style-1.1.0.tgz"
   }
 }
 ```
@@ -56,8 +56,8 @@ Yes, each project can pin a different small-style release tarball at the same ti
 
 Example:
 
-- Project A: `file:../small-style/small-style-1.0.0.tgz`
-- Project B: `file:../small-style/small-style-1.1.0.tgz`
+- Project A: `file:../_artifacts/small-style/small-style-1.0.0.tgz`
+- Project B: `file:../_artifacts/small-style/small-style-1.1.0.tgz`
 
 This is useful for gradual rollouts and migration testing.
 
