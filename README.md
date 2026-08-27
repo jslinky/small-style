@@ -100,6 +100,26 @@ On `npm install`, npm clones the tagged commit and runs the package's
 no tarball or shared artifact path is required. Pin to a specific tag (e.g.
 `#v1.1.1`) so installs stay reproducible.
 
+## Sass Load Paths (Required)
+
+`small-style` depends on `open-props-scss` (via `@use`/`@forward`). npm often
+installs it nested under `node_modules/small-style/node_modules` instead of
+hoisting it to your project's top-level `node_modules`, so Sass needs an
+extra load path or it will fail to resolve `@forward "open-props-scss"`.
+
+Add both load paths when compiling:
+
+```bash
+sass --load-path=node_modules \
+     --load-path=node_modules/small-style/node_modules \
+     ./styles/main.scss:./styles/main.css
+```
+
+If your project lives in a nested workspace (e.g. a layer/package a few
+folders deep), adjust the relative path accordingly — see
+`gardners25/layers/tailwind/package.json` for an example with multiple
+`--load-path` flags.
+
 ## Quick Start
 
 After installation, import the generated main file in your project:
