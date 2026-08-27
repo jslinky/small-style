@@ -68,9 +68,37 @@ If CI cannot access local paths, use one of these options:
 
 - Store tarballs in an internal shared artifact location.
 - Publish to an internal npm registry.
-- Use a git tag dependency temporarily.
+- Use a git tag dependency (see below).
 
 For a full repeatable release checklist, see `RELEASE.md`.
+
+## Git Tag Dependency Mode (No Shared Filesystem Required)
+
+Use this mode for new projects that won't have access to the tarball artifact
+path (e.g. a project on a different machine or a separate CI environment).
+
+```json
+{
+  "dependencies": {
+    "small-style": "git+https://github.com/jslinky/small-style.git#v1.1.1"
+  }
+}
+```
+
+Or with SSH:
+
+```json
+{
+  "dependencies": {
+    "small-style": "git+ssh://git@github.com/jslinky/small-style.git#v1.1.1"
+  }
+}
+```
+
+On `npm install`, npm clones the tagged commit and runs the package's
+`prepare` script (`npm run build:all`), which builds `dist/` automatically —
+no tarball or shared artifact path is required. Pin to a specific tag (e.g.
+`#v1.1.1`) so installs stay reproducible.
 
 ## Quick Start
 
