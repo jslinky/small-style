@@ -76,6 +76,7 @@
     "build:components": "npm run build:reset && npm run build:base && npm run build:fluid-type && npm run build:headings && npm run build:buttons && npm run build:card && npm run build:collapse && npm run build:flow && npm run build:forms && npm run build:surface && npm run build:timeline && npm run build:layout",
     "build:all": "npm run build && npm run build:all-props && npm run build:register-props && npm run build:register-props-modules && npm run build:components",
     "prepack": "npm run build:all",
+    "prepare": "npm run build:all",
     "watch": "sass scss/style.scss:dist/style.css --watch --load-path=node_modules"
   },
   "devDependencies": {
