@@ -1,8 +1,8 @@
 @use "../../mixins/rules/components/layout" as *;
 @use "../../mixins/output-rules-with-scope" as *;
 
-@include output-rules-with-scope() {
-  @layer base {
+@mixin all-layout-styles() {
+
     .wrapper {
       @include wrapper();
     }
@@ -22,17 +22,10 @@
     .flex-layout-grid {
       @include flex-layout-grid();
     }
+}
 
-    /* Note: There is a bug as of Safari 16.4 where using containment on a grid using auto-fit collapses widths to zero, so proceed with caution if you see this strategy before the bug is resolved */
-
-    :is(.layout) {
-      container: layout-container / inline-size;
-    }
-
-    :is(.layout-grid, .flex-layout-grid) {
-      > * {
-        container: var(--grid-item-container, grid-item) / inline-size;
-      }
-    }
+@include output-rules-with-scope() {
+  @layer base {
+    @include all-layout-styles();
   }
 }

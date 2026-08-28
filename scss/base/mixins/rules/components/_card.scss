@@ -127,11 +127,19 @@
   @if ($direction == row) {
     @if ($order == 0) {
       &:is([data-card-#{$direction}-content-#{$order}-size="#{$size}"]) {
-        --card-top-row: #{$size};
+        @if (str-index(#{$size}, '%')) {
+          --card-top-row: calc(#{$size} - (var(--card-gap-row, var(--card-padding-block, 0)) / 2));
+        } @else {
+          --card-top-row: #{$size};
+        }
       }
     } @else if ($order == 1) {
       &:is([data-card-#{$direction}-content-#{$order}-size="#{$size}"]) {
-        --card-bottom-row: #{$size};
+        @if (str-index(#{$size}, '%')) {
+          --card-bottom-row: calc(#{$size} - (var(--card-gap-row, var(--card-padding-block, 0)) / 2));
+        } @else {
+          --card-bottom-row: #{$size};  
+        }        
       }
     }
   } @else if ($direction == column) {

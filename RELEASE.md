@@ -83,6 +83,12 @@ Adjust relative path based on project location.
 npm install
 ```
 
+or if no version change use...
+
+```bash
+npm install ../_artifacts/small-style/small-style-1.1.0.tgz --force
+```
+
 Then run that consumer's CSS build.
 
 Examples:

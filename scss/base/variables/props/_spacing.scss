@@ -3,18 +3,18 @@
 
 $space-increment: #{tokens.$space-increment};
 
-$space-3xs: calc(var(--space-2xs) / #{$space-increment}) !default;
-$space-2xs: calc(var(--space-xs) / #{$space-increment}) !default;
-$space-xs: calc(var(--space-sm) / #{$space-increment}) !default;
+$space-3xs: calc(var(--space-2xs) / var(--space-increment, #{$space-increment})) !default;
+$space-2xs: calc(var(--space-xs) / var(--space-increment, #{$space-increment})) !default;
+$space-xs: calc(var(--space-sm) / var(--space-increment, #{$space-increment})) !default;
 $space-sm: var(--unit, #{tokens.$unit}) !default;
-$space-md: calc(var(--space-sm) * #{$space-increment}) !default;
-$space-lg: calc(var(--space-md) * #{$space-increment}) !default;
-$space-xl: calc(var(--space-lg) * #{$space-increment}) !default;
-$space-2xl: calc(var(--space-xl) * #{$space-increment}) !default;
-$space-3xl: calc(var(--space-2xl) * #{$space-increment}) !default;
-$space-4xl: calc(var(--space-3xl) * #{$space-increment}) !default;
-$space-5xl: calc(var(--space-4xl) * #{$space-increment}) !default;
-$space-6xl: calc(var(--space-5xl) * #{$space-increment}) !default;
+$space-md: calc(var(--space-sm) * var(--space-increment, #{$space-increment})) !default;
+$space-lg: calc(var(--space-md) * var(--space-increment, #{$space-increment})) !default;
+$space-xl: calc(var(--space-lg) * var(--space-increment, #{$space-increment})) !default;
+$space-2xl: calc(var(--space-xl) * var(--space-increment, #{$space-increment})) !default;
+$space-3xl: calc(var(--space-2xl) * var(--space-increment, #{$space-increment})) !default;
+$space-4xl: calc(var(--space-3xl) * var(--space-increment, #{$space-increment})) !default;
+$space-5xl: calc(var(--space-4xl) * var(--space-increment, #{$space-increment})) !default;
+$space-6xl: calc(var(--space-5xl) * var(--space-increment, #{$space-increment})) !default;
 
 $register-spacing: (
     'space-3xs': (

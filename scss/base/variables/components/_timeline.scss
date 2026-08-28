@@ -7,7 +7,7 @@ $timeline-vertical-line-selector: ".c-timeline-grid-vertical-line"!default;
 
 $timeline-gap: "1rem"!default;
 $timeline-total-gap: "calc(var(--gap) + (var(--spacing) * 2))"!default;
-$timeline-width: min(var(--breakpoint-lg), 100%) !default;
+$timeline-width: min(var(--breakpoint-xl), 100%) !default;
 $timeline-marker-size: "1rem"!default;
 $timeline-line-width: "2px"!default;
 $timeline-counter-padding: "calc(var(--spacing) * 1)"!default;
