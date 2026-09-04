@@ -34,6 +34,7 @@ $column-size: calc(
 // Flex layout
 $flex-grid-min: var(--layout-column-min, #{$layout-column-min}) !default;
 $flex-grid-gap: var(--layout-gap, #{$layout-gap}) !default;
+$grid-item-container: grid-item !default;
 
 $register-layout: (
   "layout-column-min": (
@@ -93,5 +94,10 @@ $register-layout: (
     "syntax": "*",
     "inherits": true,
     "initial-value": calc(clamp(0.25rem, 1vi, 1rem) * 1.42 * 1.42 * 1.42),
+  ),
+  "grid-item-container": (
+    "syntax": "*",
+    "inherits": true,
+    "initial-value": #{$grid-item-container},
   ),
 );

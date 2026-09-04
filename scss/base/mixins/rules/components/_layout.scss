@@ -47,6 +47,10 @@ $layout-grid-column-count-props: pick-keys(
   display: grid;
   grid-template-columns: var(--layout-grid-template-columns);
   gap: var(--layout-grid-gap);
+
+  > * {
+    container: var(--grid-item-container, grid-item) / inline-size;
+  }
 }
 
 @mixin layout-grid-column-count() {
@@ -66,7 +70,8 @@ $layout-grid-column-count-props: pick-keys(
   gap: var(--flex-grid-gap);
 
   > * {
-    display:grid; /// <<< new
+    display: grid;
     flex: 1 1 var(--flex-grid-min);
+    container: var(--grid-item-container, grid-item) / inline-size;
   }
 }

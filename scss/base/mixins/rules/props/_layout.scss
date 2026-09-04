@@ -5,7 +5,7 @@
 @use "../../../variables/props/wrapper" as wrapper;
 
 $_valid-key-tokens-keys: 'text-frame-ratio' 'text-frame-y' 'text-frame-x' 'space-increment' 'unit-max' 'unit-min' 'unit-fluid' 'unit' 'radius' 'line-height-relative' 'line-height-fixed' 'border' 'flow-space' 'field-border-color' 'field-border-width';
-$_valid-layout-keys: 'layout-column-min' 'layout-gap' 'layout-grid-min' 'layout-grid-gap' 'layout-grid-template-columns' 'column-count' 'breakpoint' 'column-size' 'flex-grid-min' 'flex-grid-gap';
+$_valid-layout-keys: 'layout-column-min' 'layout-gap' 'layout-grid-min' 'layout-grid-gap' 'layout-grid-template-columns' 'column-count' 'breakpoint' 'column-size' 'flex-grid-min' 'flex-grid-gap' 'grid-item-container';
 $_valid-wrapper-keys: 'root-max-wrapper-width' 'max-wrapper-width' 'wrapper-padding' 'wrapper-padding-min' 'wrapper-inline' 'wrapper-width' 'grid-wrapper-columns';
 
 $_key-tokens: meta.module-variables("key-tokens");
