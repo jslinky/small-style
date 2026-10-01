@@ -27,10 +27,12 @@
     }
 }
 
-@mixin output-heading-rules($map, $heading-name, $heading-sizes) {
+@mixin output-heading-rules($map, $heading-name, $heading-size, $include-heading-size: true) {
   @if (map-has-key($map, "size")) {
     $size: map.get($map, "size");
-    @include heading-size($size, $heading-sizes);
+    @if $include-heading-size {
+        @include heading-size($size, $heading-sizes);
+    }
   }
 
     $text-transform: if(map-has-key($map, "text-transform"), if(map.get($map, "text-transform") != '', map.get($map, "text-transform"), none), none);
