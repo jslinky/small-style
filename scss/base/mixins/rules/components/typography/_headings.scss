@@ -27,10 +27,10 @@
     }
 }
 
-@mixin output-heading-rules($map, $heading-name, $heading-size, $include-heading-size: true) {
+@mixin output-heading-rules($map, $heading-name, $heading-size, $use-heading-size: true) {
   @if (map-has-key($map, "size")) {
     $size: map.get($map, "size");
-    @if $include-heading-size {
+    @if $use-heading-size {
         @include heading-size($size, $heading-sizes);
     }
   }
