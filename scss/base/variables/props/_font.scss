@@ -6,19 +6,120 @@ $font-family-heading: config.$font-family-heading !default;
 $font-heading-weight: config.$font-heading-weight !default;
 
 $register-font: (
-    'font-family-base': (
-        'syntax': "*",
-        'inherits': true,
-        'initial-value': "'system-ui'"
-    ),
-    'font-family-heading': (
-        'syntax': "*",
-        'inherits': true,
-        'initial-value': "sans-serif"
-    ),
-    'font-heading-weight': (
-        'syntax': "<number>",
-        'inherits': true,
-        'initial-value': #{$font-heading-weight}
-    )
+  "font-family-base": (
+    "syntax": "*",
+    "inherits": true,
+    "initial-value": "'system-ui'",
+  ),
+  "font-family-heading": (
+    "syntax": "*",
+    "inherits": true,
+    "initial-value": "sans-serif",
+  ),
+  "font-heading-weight": (
+    "syntax": "<number>",
+    "inherits": true,
+    "initial-value": #{$font-heading-weight},
+  ),
+);
+
+$register-font-stacks: (
+  "sans-system-ui": (
+    "syntax": "<string>",
+    "value": "system-ui, sans-serif",
+    "initial-value": "system-ui, sans-serif",
+  ),
+  "sans-humanist": (
+    "syntax": "<string>",
+    "value":
+      "Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif",
+    "initial-value":
+      "Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif",
+  ),
+  "sans-geometric-humanist": (
+    "syntax": "<string>",
+    "value":
+      "Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif",
+    "initial-value":
+      "Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif",
+  ),
+  "sans-classical-humanist": (
+    "syntax": "<string>",
+    "value": "Optima, Candara, 'Noto Sans', source-sans-pro, sans-serif",
+    "initial-value": "Optima, Candara, 'Noto Sans', source-sans-pro, sans-serif",
+  ),
+  "sans-neo-grotesque": (
+    "syntax": "<string>",
+    "value":
+      "Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif",
+    "initial-value":
+      "Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif",
+  ),
+  "sans-industrial": (
+    "syntax": "<string>",
+    "value":
+      "Bahnschrift, 'DIN Alternate', 'Franklin Gothic Medium', 'Nimbus Sans Narrow', sans-serif-condensed, sans-serif",
+    "initial-value":
+      "Bahnschrift, 'DIN Alternate', 'Franklin Gothic Medium', 'Nimbus Sans Narrow', sans-serif-condensed, sans-serif",
+  ),
+  "sans-rounded-sans": (
+    "syntax": "<string>",
+    "value":
+      "ui-rounded, 'Hiragino Maru Gothic ProN', Quicksand, Comfortaa, Manjari, 'Arial Rounded MT', 'Arial Rounded MT Bold', Calibri, source-sans-pro, sans-serif",
+    "initial-value":
+      "ui-rounded, 'Hiragino Maru Gothic ProN', Quicksand, Comfortaa, Manjari, 'Arial Rounded MT', 'Arial Rounded MT Bold', Calibri, source-sans-pro, sans-serif",
+  ),
+  "serif-transitional": (
+    "syntax": "<string>",
+    "value": "Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif",
+    "initial-value":
+      "Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif",
+  ),
+  "serif-old-style": (
+    "syntax": "<string>",
+    "value":
+      "'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, serif",
+    "initial-value":
+      "'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, serif",
+  ),
+  "serif-slab-serif": (
+    "syntax": "<string>",
+    "value":
+      "Rockwell, 'Rockwell Nova', 'Roboto Slab', 'DejaVu Serif', 'Sitka Small', serif",
+    "initial-value":
+      "Rockwell, 'Rockwell Nova', 'Roboto Slab', 'DejaVu Serif', 'Sitka Small', serif",
+  ),
+  "serif-antique": (
+    "syntax": "<string>",
+    "value":
+      "Superclarendon, 'Bookman Old Style', 'URW Bookman', 'URW Bookman L', 'Georgia Pro', Georgia, serif",
+    "initial-value":
+      "Superclarendon, 'Bookman Old Style', 'URW Bookman', 'URW Bookman L', 'Georgia Pro', Georgia, serif",
+  ),
+  "serif-didone": (
+    "syntax": "<string>",
+    "value":
+      "Didot, 'Bodoni MT', 'Noto Serif Display', 'URW Palladio L', P052, Sylfaen, serif",
+    "initial-value":
+      "Didot, 'Bodoni MT', 'Noto Serif Display', 'URW Palladio L', P052, Sylfaen, serif",
+  ),
+  "monospace-slab-serif": (
+    "syntax": "<string>",
+    "value": "'Nimbus Mono PS', 'Courier New', monospace",
+    "initial-value": "'Nimbus Mono PS', 'Courier New', monospace",
+  ),
+  "monospace-code": (
+    "syntax": "<string>",
+    "value":
+      "ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace",
+    "initial-value":
+      "ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace",
+  ),
+  "cursive-handwritten": (
+    "syntax": "<string>",
+    "value":
+      "'Segoe Print', 'Bradley Hand', Chilanka, TSCu_Comic, casual, cursive",
+    "initial-value":
+      "'Segoe Print', 'Bradley Hand', Chilanka, TSCu_Comic, casual, cursive",
+  ),
 );
